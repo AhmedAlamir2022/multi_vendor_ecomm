@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css') }}">
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -47,9 +48,6 @@
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus value="{{ old('email') }}">
-                                        @if ($errors->has('email'))
-                                            <code>{{ $errors->first('email') }}</code>
-                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <div class="d-block">
@@ -61,9 +59,6 @@
                                             </div>
                                         </div>
                                         <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                                        @if ($errors->has('password'))
-                                            <code>{{ $errors->first('password') }}</code>
-                                        @endif
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
@@ -88,6 +83,7 @@
 
     <!-- General JS Scripts -->
     <script src="{{ asset('backend/assets/modules/jquery.min.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('backend/assets/modules/popper.js') }}"></script>
     <script src="{{ asset('backend/assets/modules/tooltip.js') }}"></script>
     <script src="{{ asset('backend/assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -97,6 +93,13 @@
     <!-- Template JS File -->
     <script src="{{ asset('backend/assets/js/scripts.js') }}"></script>
     <script src="{{ asset('backend/assets/js/custom.js') }}"></script>
+    <script>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}")
+            @endforeach
+        @endif
+    </script>
 </body>
 
 </html>

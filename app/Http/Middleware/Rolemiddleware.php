@@ -21,7 +21,7 @@ class Rolemiddleware
             }elseif ($request->user()->role == 'admin'){
                 return redirect()->route('admin.dashboard');
             }else {
-                return redirect()->route('dashboard');
+                return redirect()->route('user.dashboard');
             }
         }
         return $next($request);
