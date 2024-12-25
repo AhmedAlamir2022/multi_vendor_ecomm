@@ -49,6 +49,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
+        toastr()->info('Logout Successfully!');
+
         return redirect('/');
     }
 }
