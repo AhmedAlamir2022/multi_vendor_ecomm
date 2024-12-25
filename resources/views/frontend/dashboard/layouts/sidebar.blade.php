@@ -24,7 +24,7 @@
         <li><a href=""><i
                     class="far fa-star"></i> Reviews</a></li>
 
-        <li><a href=""><i
+        <li><a href="{{route('user.profile')}}"><i
                     class="far fa-user"></i> My Profile</a></li>
         <li><a href=""><i
                     class="fal fa-gift-card"></i> Addresses</a></li>
