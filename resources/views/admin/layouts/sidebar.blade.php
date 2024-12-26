@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="">Multi Vendor Ecommerce </a>
+            <a href="">E-commerce </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="">||</a>
@@ -30,41 +30,51 @@
                 </ul>
             </li>
 
-            <li class="dropdown">
+            <li
+                class="dropdown {{ setActive([
+                    'admin.brand.*',
+                    'admin.products.*',
+                    'admin.products-image-gallery.*',
+                    'admin.products-variant.*',
+                    'admin.products-variant-item.*',
+                    'admin.seller-products.*',
+                    'admin.seller-pending-products.*',
+                ]) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i>
                     <span>Manage Products</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="">Brands</a></li>
-                    <li">
+                    <li class="{{ setActive(['admin.brand.*']) }}"><a class="nav-link"
+                            href="{{ route('admin.brand.index') }}">Brands</a></li>
+                    <li>
                         <a class="nav-link" href="">Products</a>
+                    </li>
+                    <li><a class="nav-link" href="">Seller Products</a></li>
+                    <li><a class="nav-link" href="">Seller Pending Products</a></li>
+
+                    <li><a class="nav-link" href="">Product Reviews</a></li>
+
+                </ul>
             </li>
-            <li><a class="nav-link" href="">Seller Products</a></li>
-            <li><a class="nav-link" href="">Seller Pending Products</a></li>
-
-            <li><a class="nav-link" href="">Product Reviews</a></li>
-
-        </ul>
-        </li>
 
 
 
-        <li>
-            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cart-plus"></i>
-                <span>Orders</span></a>
-            <ul class="dropdown-menu">
-                <li><a class="nav-link" href="">All Orders</a></li>
-                <li><a class="nav-link" href="">All Pending Orders</a></li>
-                <li><a class="nav-link" href="">All processed Orders</a></li>
-                <li><a class="nav-link" href="">All Dropped Off Orders</a></li>
+            <li>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cart-plus"></i>
+                    <span>Orders</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="">All Orders</a></li>
+                    <li><a class="nav-link" href="">All Pending Orders</a></li>
+                    <li><a class="nav-link" href="">All processed Orders</a></li>
+                    <li><a class="nav-link" href="">All Dropped Off Orders</a></li>
 
-                <li"><a class="nav-link" href="">All Shipped Orders</a>
-        </li>
-        <li><a class="nav-link" href="">All Out For Delivery Orders</a></li>
+                    <li"><a class="nav-link" href="">All Shipped Orders</a>
+            </li>
+            <li><a class="nav-link" href="">All Out For Delivery Orders</a></li>
 
 
-        <li><a class="nav-link" href="">All Delivered Orders</a></li>
+            <li><a class="nav-link" href="">All Delivered Orders</a></li>
 
-        <li><a class="nav-link" href="">All Canceled Orders</a></li>
+            <li><a class="nav-link" href="">All Canceled Orders</a></li>
 
         </ul>
         </li>
