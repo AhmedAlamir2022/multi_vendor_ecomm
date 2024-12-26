@@ -1,13 +1,16 @@
-{{-- @php
+@php
     $categories = \App\Models\Category::where('status', 1)
-    ->with(['subCategories' => function($query){
-        $query->where('status', 1)
-        ->with(['childCategories' => function($query){
-            $query->where('status', 1);
-        }]);
-    }])
-    ->get();
-@endphp --}}
+        ->with([
+            'subCategories' => function ($query) {
+                $query->where('status', 1)->with([
+                    'childCategories' => function ($query) {
+                        $query->where('status', 1);
+                    },
+                ]);
+            },
+        ])
+        ->get();
+@endphp
 
 <nav class="wsus__main_menu d-none d-lg-block">
     <div class="container">
@@ -17,32 +20,30 @@
                     <div class="wsus_menu_category_bar">
                         <i class="far fa-bars"></i>
                     </div>
-                    {{-- <ul class="wsus_menu_cat_item show_home toggle_menu">
-
+                    <ul class="wsus_menu_cat_item show_home toggle_menu">
 
                         @foreach ($categories as $category)
-                        <li><a class="{{count($category->subCategories) > 0 ? 'wsus__droap_arrow' : ''}}" href="{{route('products.index', ['category' => $category->slug])}}"><i class="{{$category->icon}}"></i> {{$category->name}} </a>
-                            @if (count($category->subCategories) > 0)
-                                <ul class="wsus_menu_cat_droapdown">
-                                    @foreach ($category->subCategories as $subCategory)
-                                        <li><a href="{{route('products.index', ['subcategory' => $subCategory->slug])}}">{{$subCategory->name}} <i class="{{count($subCategory->childCategories) > 0 ? 'fas fa-angle-right' : ''}}"></i></a>
-                                            @if (count($subCategory->childCategories) > 0)
-                                            <ul class="wsus__sub_category">
-                                                @foreach ($subCategory->childCategories as $childCategory)
-                                                    <li><a href="{{route('products.index', ['childcategory' => $childCategory->slug])}}">{{$childCategory->name}}</a> </li>
-                                                @endforeach
-                                            </ul>
-                                            @endif
-                                        </li>
-                                    @endforeach
-
-                                </ul>
-                            @endif
-                        </li>
+                            <li><a class="{{ count($category->subCategories) > 0 ? 'wsus__droap_arrow' : '' }}"
+                                    href=""><i class="{{ $category->icon }}"></i> {{ $category->name }} </a>
+                                @if (count($category->subCategories) > 0)
+                                    <ul class="wsus_menu_cat_droapdown">
+                                        @foreach ($category->subCategories as $subCategory)
+                                            <li><a href="">{{ $subCategory->name }} <i
+                                                        class="{{ count($subCategory->childCategories) > 0 ? 'fas fa-angle-right' : '' }}"></i></a>
+                                                @if (count($subCategory->childCategories) > 0)
+                                                    <ul class="wsus__sub_category">
+                                                        @foreach ($subCategory->childCategories as $childCategory)
+                                                            <li><a href="">{{ $childCategory->name }}</a> </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
                         @endforeach
-
-
-                    </ul> --}}
+                    </ul>
 
                     <ul class="wsus__menu_item">
                         <li><a href="{{ url('/') }}">home</a></li>
@@ -123,7 +124,7 @@
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
             <div class="wsus__mobile_menu_main_menu">
                 <div class="accordion accordion-flush" id="accordionFlushExample">
-                    {{-- <ul class="wsus_mobile_menu_category">
+                    <ul class="wsus_mobile_menu_category">
                         @foreach ($categories as $categoryItem)
                         <li>
                             <a href="#" class="{{count($categoryItem->subCategories) > 0 ? 'accordion-button' : ''}} collapsed" data-bs-toggle="collapse"
@@ -144,8 +145,7 @@
                             @endif
                         </li>
                         @endforeach
-
-                    </ul> --}}
+                    </ul>
                 </div>
             </div>
         </div>
