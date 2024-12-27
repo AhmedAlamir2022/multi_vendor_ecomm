@@ -83,10 +83,10 @@
                                     item)</p>
                             @endif
                             @if (checkDiscount($product))
-                                <h4>${{ $product->offer_price }}
-                                    <del>${{ $product->price }}</del></h4>
+                                <h4>{{$settings->currency_icon}} {{ $product->offer_price }}
+                                    <del>{{$settings->currency_icon}} {{ $product->price }}</del></h4>
                             @else
-                                <h4>${{ $product->price }}</h4>
+                                <h4>{{$settings->currency_icon}} {{ $product->price }}</h4>
                             @endif
                             <p class="wsus__pro_rating">
                                 {{-- @php
@@ -119,7 +119,7 @@
                                                             @if ($variantItem->status != 0)
                                                                 <option value="{{ $variantItem->id }}"
                                                                     {{ $variantItem->is_default == 1 ? 'selected' : '' }}>
-                                                                    {{ $variantItem->name }} (${{ $variantItem->price }})
+                                                                    {{ $variantItem->name }} ({{ $variantItem->price }}{{$settings->currency_icon}})
                                                                 </option>
                                                             @endif
                                                         @endforeach

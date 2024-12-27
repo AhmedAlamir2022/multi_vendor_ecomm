@@ -49,7 +49,6 @@
                         <li><a href="{{ url('/') }}">home</a></li>
 
                         <li><a href="">vendors</a></li>
-                        <li><a href="">flash Sale</a></li>
                         <li><a href="">blog</a></li>
                         <li><a href="">about</a></li>
                         <li><a href="">contact</a></li>

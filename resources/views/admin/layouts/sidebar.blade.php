@@ -46,7 +46,8 @@
                             'admin.products-variant-item.*',
                             'admin.reviews.*',
                         ]) }}">
-                        <a class="nav-link" href="{{ route('admin.products.index') }}">Products</a></li>
+                        <a class="nav-link" href="{{ route('admin.products.index') }}">Products</a>
+                    </li>
                     <li class="{{ setActive(['admin.seller-products.*']) }}"><a class="nav-link"
                             href="{{ route('admin.seller-products.index') }}">Seller Products</a></li>
                     <li class="{{ setActive(['admin.seller-pending-products.*']) }}"><a class="nav-link"
@@ -87,7 +88,7 @@
                 <span>E-commerce</span></a>
             <ul class="dropdown-menu">
                 <li class="{{ setActive(['admin.flash-sale.*']) }}"><a class="nav-link"
-                    href="{{ route('admin.flash-sale.index') }}">Flash Sale</a></li>
+                        href="{{ route('admin.flash-sale.index') }}">Flash Sale</a></li>
                 <li><a class="nav-link" href="">Coupons</a></li>
                 <li><a class="nav-link" href="">Shipping Rule</a></li>
                 <li class="{{ setActive(['admin.vendor-profile.*']) }}"><a class="nav-link"
@@ -187,7 +188,7 @@
         <li><a class="nav-link" href=""><i class="fas fa-user"></i>
                 <span>Subscribers</span></a></li>
 
-        <li><a class="nav-link" href=""><i class="fas fa-wrench"></i>
+        <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="fas fa-wrench"></i>
                 <span>Settings</span></a></li>
 
         </ul>
