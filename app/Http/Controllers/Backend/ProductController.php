@@ -66,7 +66,7 @@ class ProductController extends Controller
         $product->thumb_image = $imagePath;
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
-        $product->vendor_id = $request->vendor;
+        $product->vendor_id = Auth::user()->id;
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category;
         $product->child_category_id = $request->child_category;
@@ -140,7 +140,7 @@ class ProductController extends Controller
         $product->thumb_image = empty(!$imagePath) ? $imagePath : $product->thumb_image;
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
-        $product->vendor_id = $request->vendor;
+        $product->vendor_id = Auth::user()->id;
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category;
         $product->child_category_id = $request->child_category;

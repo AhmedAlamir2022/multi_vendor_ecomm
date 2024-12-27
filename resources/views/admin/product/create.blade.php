@@ -62,7 +62,7 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="inputState">Brand</label>
                                             <select id="inputState" class="form-control" name="brand">
@@ -73,7 +73,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="inputState">Vendors</label>
                                             <select id="inputState" class="form-control" name="vendor">
@@ -83,7 +83,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
 
