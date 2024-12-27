@@ -78,6 +78,7 @@
         <li
             class="dropdown {{ setActive([
                 'admin.vendor-profile.*',
+                'admin.flash-sale.*',
                 'admin.coupons.*',
                 'admin.shipping-rule.*',
                 'admin.payment-settings.*',
@@ -85,7 +86,8 @@
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                 <span>E-commerce</span></a>
             <ul class="dropdown-menu">
-                <li><a class="nav-link" href="">Flash Sale</a></li>
+                <li class="{{ setActive(['admin.flash-sale.*']) }}"><a class="nav-link"
+                    href="{{ route('admin.flash-sale.index') }}">Flash Sale</a></li>
                 <li><a class="nav-link" href="">Coupons</a></li>
                 <li><a class="nav-link" href="">Shipping Rule</a></li>
                 <li class="{{ setActive(['admin.vendor-profile.*']) }}"><a class="nav-link"
