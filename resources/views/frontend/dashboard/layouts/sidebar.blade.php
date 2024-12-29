@@ -5,11 +5,9 @@
     </span>
     <a href="javascript:;" class="dash_logo"><img src="" alt="logo" class="img-fluid"></a>
     <ul class="dashboard_link">
-        <li><a href=""><i
-                    class="fas fa-tachometer"></i>Dashboard</a></li>
+        <li><a href=""><i class="fas fa-tachometer"></i>Dashboard</a></li>
 
-        <li><a href=""><i
-                    class="fas fa-tachometer"></i>Messages</a></li>
+        <li><a href=""><i class="fas fa-tachometer"></i>Messages</a></li>
 
         <li><a class="" href="{{ url('/') }}"><i class="fas fa-home"></i>Go To Home Page</a></li>
 
@@ -19,14 +17,11 @@
         @endif --}}
 
 
-        <li><a href=""><i
-                    class="fas fa-list-ul"></i> Orders</a></li>
-        <li><a href=""><i
-                    class="far fa-star"></i> Reviews</a></li>
+        <li><a href=""><i class="fas fa-list-ul"></i> Orders</a></li>
+        <li><a href=""><i class="far fa-star"></i> Reviews</a></li>
 
-        <li><a href="{{route('user.profile')}}"><i
-                    class="far fa-user"></i> My Profile</a></li>
-        <li><a href=""><i
+        <li><a href="{{ route('user.profile') }}"><i class="far fa-user"></i> My Profile</a></li>
+        <li><a class="{{ setActive(['user.address.*']) }}" href="{{ route('user.address.index') }}"><i
                     class="fal fa-gift-card"></i> Addresses</a></li>
         @if (auth()->user()->role !== 'vendor')
             <li><a href=""><i class="far fa-user"></i> Request to be
