@@ -1,13 +1,13 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-User || Reset Password
+    Reset Password || {{ $settings->site_name }}
 @endsection
 
 @section('content')
     <!--============================
-        BREADCRUMB START
-    ==============================-->
+            BREADCRUMB START
+        ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -24,13 +24,13 @@ User || Reset Password
         </div>
     </section>
     <!--============================
-        BREADCRUMB END
-    ==============================-->
+            BREADCRUMB END
+        ==============================-->
 
 
     <!--============================
-        CHANGE PASSWORD START
-    ==============================-->
+            CHANGE PASSWORD START
+        ==============================-->
     <section id="wsus__login_register">
         <div class="container">
             <div class="row">
@@ -41,12 +41,13 @@ User || Reset Password
 
                         <div class="wsus__change_password">
                             <h4>reset password</h4>
-                                <!-- Password Reset Token -->
-                                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                            <!-- Password Reset Token -->
+                            <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
                             <div class="wsus__single_pass">
                                 <label>email</label>
-                                <input id="email" type="email" name="email" value="{{old('email', $request->email)}}" placeholder="Email">
+                                <input id="email" type="email" name="email"
+                                    value="{{ old('email', $request->email) }}" placeholder="Email">
                             </div>
 
                             <div class="wsus__single_pass">
@@ -57,8 +58,8 @@ User || Reset Password
 
                             <div class="wsus__single_pass">
                                 <label>confirm password</label>
-                                <input id="password_confirmation" type="password"
-                                name="password_confirmation" type="text" placeholder="Confirm Password">
+                                <input id="password_confirmation" type="password" name="password_confirmation"
+                                    type="text" placeholder="Confirm Password">
                             </div>
 
 
@@ -70,6 +71,6 @@ User || Reset Password
         </div>
     </section>
     <!--============================
-        CHANGE PASSWORD END
-    ==============================-->
+            CHANGE PASSWORD END
+        ==============================-->
 @endsection

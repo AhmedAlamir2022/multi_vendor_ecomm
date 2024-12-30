@@ -29,27 +29,23 @@
                             <i class="fas fa-user-headset"></i>
                         </div>
                         <div class="wsus__call_text">
-                            {{-- <p>{{$settings->contact_email}}</p>
-                            <p>{{$settings->contact_phone}}</p> --}}
+                            <p>{{$settings->contact_email}}</p>
+                            <p>{{$settings->contact_phone}}</p>
                         </div>
                     </div>
                     <ul class="wsus__icon_area">
                         <li><a href=""><i class="fal fa-heart"></i><span id="wishlist_count">
-                            {{-- @if (auth()->check())
-                            {{\App\Models\Wishlist::where('user_id', auth()->user()->id)->count()}}
-                            @else
-                            0
-                            @endif --}}
+
                         </span></a></li>
                         {{-- <li><a href="compare.html"><i class="fal fa-random"></i><span>03</span></a></li> --}}
                         <li><a class="wsus__cart_icon" href="#"><i
-                                    class="fal fa-shopping-bag"></i><span id="cart-count">48</span></a></li>
+                            class="fal fa-shopping-bag"></i><span id="cart-count">{{Cart::content()->count()}}</span></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    {{-- <div class="wsus__mini_cart">
+    <div class="wsus__mini_cart">
         <h4>shopping cart <span class="wsus_close_mini_cart"><i class="far fa-times"></i></span></h4>
         <ul class="mini_cart_wrapper">
             @foreach (Cart::content() as $sidebarProduct)
@@ -77,9 +73,9 @@
             <h5>sub total <span id="mini_cart_subtotal">{{$settings->currency_icon}}{{getCartTotal()}}</span></h5>
             <div class="wsus__minicart_btn_area">
                 <a class="common_btn" href="{{route('cart-details')}}">view cart</a>
-                <a class="common_btn" href="{{route('user.checkout')}}">checkout</a>
+                <a class="common_btn" href="">checkout</a>
             </div>
         </div>
-    </div> --}}
+    </div>
 
 </header>

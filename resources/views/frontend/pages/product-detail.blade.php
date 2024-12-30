@@ -142,8 +142,6 @@
 
                                 <ul class="wsus__button_area">
                                     <li><button type="submit" class="add_cart" href="#">add to cart</button></li>
-
-
                                     <li><a style="border: 1px solid gray;
                                         padding: 7px 11px;
                                         border-radius: 100%;"
@@ -161,10 +159,6 @@
                                         </button>
 
                                     </li>
-
-
-
-
                                 </ul>
                             </form>
                             <p class="brand_model"><span>brand :</span> {{ $product->brand->name }}</p>

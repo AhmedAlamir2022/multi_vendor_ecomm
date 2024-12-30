@@ -1,14 +1,13 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-User || Forgot Password
+    Forget Password || {{ $settings->site_name }}
 @endsection
 
 @section('content')
-
     <!--============================
-        BREADCRUMB START
-    ==============================-->
+            BREADCRUMB START
+        ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -25,13 +24,13 @@ User || Forgot Password
         </div>
     </section>
     <!--============================
-        BREADCRUMB END
-    ==============================-->
+            BREADCRUMB END
+        ==============================-->
 
 
     <!--============================
-        FORGET PASSWORD START
-    ==============================-->
+            FORGET PASSWORD START
+        ==============================-->
     <section id="wsus__login_register">
         <div class="container">
             <div class="row">
@@ -45,19 +44,20 @@ User || Forgot Password
                                 @csrf
                                 <div class="wsus__login_input">
                                     <i class="fal fa-envelope"></i>
-                                    <input id="email" type="email" name="email" value="{{old('email')}}" placeholder="Your Email">
+                                    <input id="email" type="email" name="email" value="{{ old('email') }}"
+                                        placeholder="Your Email">
                                 </div>
 
                                 <button class="common_btn" type="submit">send</button>
                             </form>
                         </div>
-                        <a class="see_btn mt-4" href="{{route('login')}}">go to login</a>
+                        <a class="see_btn mt-4" href="{{ route('login') }}">go to login</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!--============================
-        FORGET PASSWORD END
-    ==============================-->
+            FORGET PASSWORD END
+        ==============================-->
 @endsection

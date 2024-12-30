@@ -1,13 +1,13 @@
 @extends('frontend.dashboard.layouts.master')
 
 @section('title')
-    User || Profile
+    User Profile || {{ $settings->site_name }}
 @endsection
 
 @section('content')
     <!--=============================
-        DASHBOARD START
-      ==============================-->
+            DASHBOARD START
+          ==============================-->
     <section id="wsus__dashboard">
         <div class="container-fluid">
             @include('frontend.dashboard.layouts.sidebar')
@@ -96,6 +96,6 @@
         </div>
     </section>
     <!--=============================
-        DASHBOARD START
-      ==============================-->
+            DASHBOARD START
+          ==============================-->
 @endsection

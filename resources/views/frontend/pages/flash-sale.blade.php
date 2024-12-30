@@ -59,11 +59,11 @@ Frontend || Flash Sale
                         <x-product-card :product="$product" />
                     @endforeach
                 </div>
-                {{-- <div class="mt-5">
+                <div class="mt-5">
                     @if ($flashSaleItems->hasPages())
                         {{$flashSaleItems->links()}}
                     @endif
-                </div> --}}
+                </div>
             </div>
         </div>
     </section>
