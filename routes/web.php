@@ -10,6 +10,9 @@ use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +34,23 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('github.login');
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+    $user = User::firstOrCreate([
+        'email' => $user->email,
+    ], [
+        'name' => $user->name,
+        'password' => bcrypt(Str::random(20))
+    ]);
+    Auth::login($user, true);
+    return redirect('user/dashboard');
+
+});
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 
@@ -70,3 +90,4 @@ Route::get('coupon-calculation', [CartController::class, 'couponCalculation'])->
 
 /** Product routes */
 Route::get('show-product-modal/{id}', [HomeController::class, 'ShowProductModal'])->name('show-product-modal');
+

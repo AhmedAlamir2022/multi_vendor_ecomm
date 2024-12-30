@@ -80,6 +80,7 @@
                                             <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                             <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                            <li><a href="{{ route('github.login') }}"><i class="fab fa-github"></i></a></li>
                                         </ul>
                                     </form>
                                 </div>

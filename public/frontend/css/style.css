@@ -5434,6 +5434,10 @@ footer {
     background: #2464ad;
 }
 
+.wsus__login_link li:nth-child(5) a {
+    background: #000;
+}
+
 .wsus__login_text_position {
     position: absolute;
     top: 50%;
