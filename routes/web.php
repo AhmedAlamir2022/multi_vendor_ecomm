@@ -35,6 +35,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
+
+/** auth github */
 Route::get('/auth/redirect', function () {
     return Socialite::driver('github')->redirect();
 })->name('github.login');
@@ -51,6 +53,45 @@ Route::get('/auth/callback', function () {
     return redirect('user/dashboard');
 
 });
+
+/** auth google */
+Route::get('/auth/google/redirect', function () {
+    return Socialite::driver('google')->redirect();
+})->name('google.login');
+
+Route::get('auth/google/callback', function () {
+    $user = Socialite::driver('google')->user();
+    //dd($user);
+    $user = User::firstOrCreate([
+        'email' => $user->email,
+    ], [
+        'name' => $user->name,
+        'password' => bcrypt(Str::random(20))
+    ]);
+    Auth::login($user, true);
+    return redirect('user/dashboard');
+
+});
+
+/** auth facebook */
+Route::get('/auth/facebook/redirect', function () {
+    return Socialite::driver('facebook')->redirect();
+})->name('facebook.login');
+
+Route::get('auth/facebook/callback', function () {
+    $user = Socialite::driver('facebook')->user();
+    dd($user);
+    $user = User::firstOrCreate([
+        'email' => $user->email,
+    ], [
+        'name' => $user->name,
+        'password' => bcrypt(Str::random(20))
+    ]);
+    Auth::login($user, true);
+    return redirect('user/dashboard');
+
+});
+
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
 

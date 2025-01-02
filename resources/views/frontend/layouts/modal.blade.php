@@ -1,3 +1,4 @@
+
 <div class="modal-body">
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="far fa-times"></i></button>
     <div class="row">
@@ -13,6 +14,7 @@
                     <div class="col-xl-12">
                         <div class="modal_slider_img">
                             <img src="{{ asset($product->thumb_image) }}" alt="product" class="img-fluid w-100">
+
                         </div>
                     </div>
 
@@ -22,7 +24,7 @@
         </div>
         <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
             <div class="wsus__pro_details_text">
-                <a class="title" href="#">{{ limitText($product->name, 150) }}</a>
+                <a class="title" href="#">{{ limitText($product->name, 150) }} </a>
                 <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>
                 @if (checkDiscount($product))
                     <h4>{{ $settings->currency_icon }}{{ $product->offer_price }}
@@ -96,3 +98,61 @@
         </div>
     </div>
 </div>
+
+
+<!--jquery library js-->
+<script src="{{asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
+<!--bootstrap js-->
+<script src="{{asset('frontend/js/bootstrap.bundle.min.js')}}"></script>
+<!--font-awesome js-->
+<script src="{{asset('frontend/js/Font-Awesome.js')}}"></script>
+<!--select2 js-->
+<script src="{{asset('frontend/js/select2.min.js')}}"></script>
+<!--slick slider js-->
+<script src="{{asset('frontend/js/slick.min.js')}}"></script>
+<!--simplyCountdown js-->
+<script src="{{asset('frontend/js/simplyCountdown.js')}}"></script>
+<!--product zoomer js-->
+<script src="{{asset('frontend/js/jquery.exzoom.js')}}"></script>
+<!--nice-number js-->
+<script src="{{asset('frontend/js/jquery.nice-number.min.js')}}"></script>
+<!--counter js-->
+<script src="{{asset('frontend/js/jquery.waypoints.min.js')}}"></script>
+<script src="{{asset('frontend/js/jquery.countup.min.js')}}"></script>
+<!--add row js-->
+<script src="{{asset('frontend/js/add_row_custon.js')}}"></script>
+<!--multiple-image-video js-->
+<script src="{{asset('frontend/js/multiple-image-video.js')}}"></script>
+<!--sticky sidebar js-->
+<script src="{{asset('frontend/js/sticky_sidebar.js')}}"></script>
+<!--price ranger js-->
+<script src="{{asset('frontend/js/ranger_jquery-ui.min.js')}}"></script>
+<script src="{{asset('frontend/js/ranger_slider.js')}}"></script>
+<!--isotope js-->
+<script src="{{asset('frontend/js/isotope.pkgd.min.js')}}"></script>
+<!--venobox js-->
+<script src="{{asset('frontend/js/venobox.min.js')}}"></script>
+<!--Toaster js-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<!--Sweetalert js-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!--classycountdown js-->
+<script src="{{asset('frontend/js/jquery.classycountdown.js')}}"></script>
+
+
+<!--main/custom js-->
+<script src="{{asset('frontend/js/main.js')}}"></script>
+
+<script>
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            toastr.error("{{$error}}")
+        @endforeach
+    @endif
+</script>
+<script>
+    $(document).ready(function(){
+        $('.auto_click').click();
+    })
+</script>
+@include('frontend.layouts.scripts')
