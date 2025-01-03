@@ -28,7 +28,7 @@
 
                             @include('admin.payment-settings.sections.paypal-setting')
 
-                            {{-- @include('admin.payment-settings.sections.stripe-setting') --}}
+                            @include('admin.payment-settings.sections.stripe-setting')
 
                             {{-- @include('admin.payment-settings.sections.razorpay-setting') --}}
 

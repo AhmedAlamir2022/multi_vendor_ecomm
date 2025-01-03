@@ -8,17 +8,20 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\PaypalSetting;
 use App\Models\Product;
+use App\Models\StripeSetting;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
     public function index()
     {
-        if(!Session::has('address')){
+        if (!Session::has('address')) {
             return redirect()->route('user.checkout');
         }
         return view('frontend.pages.payment');
@@ -50,7 +53,7 @@ class PaymentController extends Controller
         $order->save();
 
         // store order products
-        foreach(\Cart::content() as $item){
+        foreach (\Cart::content() as $item) {
             $product = Product::find($item->id);
             $orderProduct = new OrderProduct();
             $orderProduct->order_id = $order->id;
@@ -78,7 +81,6 @@ class PaymentController extends Controller
         $transaction->amount_real_currency = $paidAmount;
         $transaction->amount_real_currency_name = $paidCurrencyName;
         $transaction->save();
-
     }
 
     public function clearSession()
@@ -125,7 +127,7 @@ class PaymentController extends Controller
 
         // calculate payable amount depending on currency rate
         $total = getFinalPayableAmount();
-        $payableAmount = round($total*$paypalSetting->currency_rate, 2);
+        $payableAmount = round($total * $paypalSetting->currency_rate, 2);
 
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
@@ -143,16 +145,15 @@ class PaymentController extends Controller
             ]
         ]);
 
-        if(isset($response['id']) && $response['id'] != null){
-            foreach($response['links'] as $link){
-                if($link['rel'] === 'approve'){
+        if (isset($response['id']) && $response['id'] != null) {
+            foreach ($response['links'] as $link) {
+                if ($link['rel'] === 'approve') {
                     return redirect()->away($link['href']);
                 }
             }
         } else {
             return redirect()->route('user.paypal.cancel');
         }
-
     }
     public function paypalSuccess(Request $request)
     {
@@ -167,7 +168,7 @@ class PaymentController extends Controller
             // calculate payable amount depending on currency rate
             $paypalSetting = PaypalSetting::first();
             $total = getFinalPayableAmount();
-            $paidAmount = round($total*$paypalSetting->currency_rate, 2);
+            $paidAmount = round($total * $paypalSetting->currency_rate, 2);
 
             $this->storeOrder('paypal', 1, $response['id'], $paidAmount, $paypalSetting->currency_name);
             // clear session
@@ -182,5 +183,35 @@ class PaymentController extends Controller
     {
         toastr('Someting went wrong try agin later!', 'error', 'Error');
         return redirect()->route('user.payment');
+    }
+
+    /** Stripe Payment */
+
+    public function payWithStripe(Request $request)
+    {
+
+        // calculate payable amount depending on currency rate
+        $stripeSetting = StripeSetting::first();
+        $total = getFinalPayableAmount();
+        $payableAmount = round($total * $stripeSetting->currency_rate, 2);
+
+        Stripe::setApiKey($stripeSetting->secret_key);
+        $response = Charge::create([
+            "amount" => $payableAmount * 100,
+            "currency" => $stripeSetting->currency_name,
+            "source" => $request->stripe_token,
+            "description" => "product purchase!"
+        ]);
+
+        if ($response->status === 'succeeded') {
+            $this->storeOrder('stripe', 1, $response->id, $payableAmount, $stripeSetting->currency_name);
+            // clear session
+            $this->clearSession();
+
+            return redirect()->route('user.payment.success');
+        } else {
+            toastr('Someting went wrong try agin later!', 'error', 'Error');
+            return redirect()->route('user.payment');
+        }
     }
 }
