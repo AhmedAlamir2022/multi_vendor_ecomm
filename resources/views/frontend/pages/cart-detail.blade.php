@@ -302,7 +302,7 @@
                 })
             }
 
-            // applay coupon on cart
+            // applay coupon on cart 
 
             $('#coupon_form').on('submit', function(e) {
                 e.preventDefault();
