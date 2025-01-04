@@ -89,7 +89,8 @@
                 </ul>
             </li>
 
-            <li><a class="nav-link" href=""><i class="fas fa-money-bill-alt"></i>
+            <li class="{{ setActive(['admin.transaction']) }}"><a class="nav-link"
+                    href="{{ route('admin.transaction') }}"><i class="fas fa-money-bill-alt"></i>
                     <span>Transactions</span></a>
             </li>
 

@@ -22,6 +22,7 @@ use App\Http\Controllers\Backend\ShippingRuleController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\StripeSettingController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,7 +141,7 @@ Route::get('canceled-orders', [OrderController::class, 'canceledOrders'])->name(
 Route::resource('order', OrderController::class);
 
 /** Order Transaction route */
-// Route::get('transaction', [TransactionController::class, 'index'])->name('transaction');
+Route::get('transaction', [TransactionController::class, 'index'])->name('transaction');
 
 
 
