@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function vendor()
+    public function vendor() 
     {
         return $this->belongsTo(User::class);
     }
