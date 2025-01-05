@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserOrderController;
 use App\Http\Controllers\Frontend\UserProfileController;
+use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
@@ -123,6 +124,9 @@ Route::get('coupon-calculation', [CartController::class, 'couponCalculation'])->
 /** Product routes */
 Route::get('show-product-modal/{id}', [HomeController::class, 'ShowProductModal'])->name('show-product-modal');
 
+/** add product in wishlist */
+Route::get('wishlist/add-product', [WishlistController::class, 'addToWishlist'])->name('wishlist.store');
+
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
     //  user dashboard
     Route::get('dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
@@ -138,6 +142,10 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     /** Order Routes */
     Route::get('orders', [UserOrderController::class, 'index'])->name('orders.index');
     Route::get('orders/show/{id}', [UserOrderController::class, 'show'])->name('orders.show');
+
+    /** Wishlist routes */
+    Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::get('wishlist/remove-product/{id}', [WishlistController::class, 'destory'])->name('wishlist.destory');
 
     /** Checkout routes */
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout');
