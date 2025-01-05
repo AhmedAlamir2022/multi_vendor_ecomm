@@ -17,8 +17,7 @@ class ProductController extends Controller
     {
         if ($request->has('category')) {
             $category = Category::where('slug', $request->category)->firstOrFail();
-            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
-                ->with(['variants', 'category', 'productImageGalleries'])
+            $products = Product::with(['variants', 'category', 'productImageGalleries'])
                 ->where([
                     'category_id' => $category->id,
                     'status' => 1,
@@ -34,8 +33,7 @@ class ProductController extends Controller
                 ->paginate(12);
         } elseif ($request->has('subcategory')) {
             $category = SubCategory::where('slug', $request->subcategory)->firstOrFail();
-            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
-                ->with(['variants', 'category', 'productImageGalleries'])
+            $products = Product::with(['variants', 'category', 'productImageGalleries'])
                 ->where([
                     'sub_category_id' => $category->id,
                     'status' => 1,
@@ -52,8 +50,7 @@ class ProductController extends Controller
         } elseif ($request->has('childcategory')) {
             $category = ChildCategory::where('slug', $request->childcategory)->firstOrFail();
 
-            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
-                ->with(['variants', 'category', 'productImageGalleries'])
+            $products = Product::with(['variants', 'category', 'productImageGalleries'])
                 ->where([
                     'child_category_id' => $category->id,
                     'status' => 1,
@@ -70,8 +67,7 @@ class ProductController extends Controller
         } elseif ($request->has('brand')) {
             $brand = Brand::where('slug', $request->brand)->firstOrFail();
 
-            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
-                ->with(['variants', 'category', 'productImageGalleries'])
+            $products = Product::with(['variants', 'category', 'productImageGalleries'])
                 ->where([
                     'brand_id' => $brand->id,
                     'status' => 1,
@@ -86,8 +82,7 @@ class ProductController extends Controller
                 })
                 ->paginate(12);
         } elseif ($request->has('search')) {
-            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
-                ->with(['variants', 'category', 'productImageGalleries'])
+            $products = Product::with(['variants', 'category', 'productImageGalleries'])
                 ->where(['status' => 1, 'is_approved' => 1])
                 ->where(function ($query) use ($request) {
                     $query->where('name', 'like', '%' . $request->search . '%')
@@ -99,9 +94,16 @@ class ProductController extends Controller
                 })
                 ->paginate(12);
         } else {
-            $products = Product::withAvg('reviews', 'rating')->withCount('reviews')
-                ->with(['variants', 'category', 'productImageGalleries'])
-                ->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'DESC')->paginate(12);
+            $products = Product::with(['variants', 'category', 'productImageGalleries'])
+                ->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'DESC')
+                ->when($request->has('range'), function ($query) use ($request) {
+                    $price = explode(';', $request->range);
+                    $from = $price[0];
+                    $to = $price[1];
+
+                    return $query->where('price', '>=', $from)->where('price', '<=', $to);
+                })
+                ->paginate(12);
         }
 
         $categories = Category::where(['status' => 1])->get();

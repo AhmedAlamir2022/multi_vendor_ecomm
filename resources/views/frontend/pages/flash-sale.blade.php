@@ -60,9 +60,9 @@ Frontend || Flash Sale
                     @endforeach
                 </div>
                 <div class="mt-5">
-                    @if ($flashSaleItems->hasPages())
+                    {{-- @if ($flashSaleItems->hasPages())
                         {{$flashSaleItems->links()}}
-                    @endif
+                    @endif --}}
                 </div>
             </div>
         </div>

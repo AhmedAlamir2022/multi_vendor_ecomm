@@ -134,6 +134,7 @@
             <li
                 class="dropdown {{ setActive([
                     'admin.slider.*',
+                    'admin.home-page-setting',
                     'admin.vendor-condition.index',
                     'admin.about.index',
                     'admin.terms-and-conditions.index',
@@ -143,8 +144,8 @@
                 <ul class="dropdown-menu">
                     <li class="{{ setActive(['admin.slider.*']) }}"><a class="nav-link"
                             href="{{ route('admin.slider.index') }}">Slider</a></li>
-
-                    <li><a class="nav-link" href="">Home Page Setting</a></li>
+                    <li class="{{ setActive(['admin.home-page-setting']) }}"><a class="nav-link"
+                            href="{{ route('admin.home-page-setting') }}">Home Page Setting</a></li>
 
                     <li><a class="nav-link" href="">Vendor Condition</a></li>
                     <li><a class="nav-link" href="">About page</a></li>
