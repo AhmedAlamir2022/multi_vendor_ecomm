@@ -32,7 +32,7 @@
                 @else
                     <h4>{{ $settings->currency_icon }}{{ $product->price }}</h4>
                 @endif
-                {{-- <p class="review">
+                <p class="review">
                     @php
                         $avgRating = $product->reviews()->avg('rating');
                         $fullRating = round($avgRating);
@@ -47,7 +47,7 @@
                     @endfor
 
                     <span>({{ count($product->reviews) }} review)</span>
-                </p> --}}
+                </p>
                 <p class="description">{!! limitText($product->short_description, 200) !!}</p>
 
                 <form class="shopping-cart-form">

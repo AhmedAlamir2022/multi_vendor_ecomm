@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsletterController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserOrderController;
@@ -56,7 +57,6 @@ Route::get('/auth/callback', function () {
     ]);
     Auth::login($user, true);
     return redirect('user/dashboard');
-
 });
 
 /** auth google */
@@ -75,7 +75,6 @@ Route::get('auth/google/callback', function () {
     ]);
     Auth::login($user, true);
     return redirect('user/dashboard');
-
 });
 
 /** auth facebook */
@@ -94,7 +93,6 @@ Route::get('auth/facebook/callback', function () {
     ]);
     Auth::login($user, true);
     return redirect('user/dashboard');
-
 });
 
 
@@ -153,6 +151,10 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::get('wishlist/remove-product/{id}', [WishlistController::class, 'destory'])->name('wishlist.destory');
 
+    /** product review routes */
+    Route::get('reviews', [ReviewController::class, 'index'])->name('review.index');
+    Route::post('review', [ReviewController::class, 'create'])->name('review.create');
+
     /** Checkout routes */
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout');
     Route::post('checkout/address-create', [CheckOutController::class, 'createAddress'])->name('checkout.address.create');
@@ -170,9 +172,3 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     /** Stripe routes */
     Route::post('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.payment');
 });
-
-
-
-
-
-

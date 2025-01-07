@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function vendor() 
+    public function vendor()
     {
         return $this->belongsTo(User::class);
     }
@@ -33,5 +33,10 @@ class Product extends Model
     public function variants()
     {
         return $this->hasMany(ProductVariant::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
     }
 }

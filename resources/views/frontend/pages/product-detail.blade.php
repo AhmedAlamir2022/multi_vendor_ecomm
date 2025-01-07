@@ -13,8 +13,8 @@
 
 @section('content')
     <!--============================
-            BREADCRUMB START
-        ==============================-->
+                        BREADCRUMB START
+                    ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -22,7 +22,7 @@
                     <div class="col-12">
                         <h4>products details</h4>
                         <ul>
-                            <li><a href="{{url('/')}}">home</a></li>
+                            <li><a href="{{ url('/') }}">home</a></li>
                             <li><a href="javascript:;">product</a></li>
                             <li><a href="javascript:;">product details</a></li>
                         </ul>
@@ -32,13 +32,13 @@
         </div>
     </section>
     <!--============================
-            BREADCRUMB END
-        ==============================-->
+                        BREADCRUMB END
+                    ==============================-->
 
 
     <!--============================
-            PRODUCT DETAILS START
-        ==============================-->
+                        PRODUCT DETAILS START
+                    ==============================-->
     <section id="wsus__product_details">
         <div class="container">
             <div class="wsus__details_bg">
@@ -83,13 +83,14 @@
                                     item)</p>
                             @endif
                             @if (checkDiscount($product))
-                                <h4>{{$settings->currency_icon}} {{ $product->offer_price }}
-                                    <del>{{$settings->currency_icon}} {{ $product->price }}</del></h4>
+                                <h4>{{ $settings->currency_icon }} {{ $product->offer_price }}
+                                    <del>{{ $settings->currency_icon }} {{ $product->price }}</del>
+                                </h4>
                             @else
-                                <h4>{{$settings->currency_icon}} {{ $product->price }}</h4>
+                                <h4>{{ $settings->currency_icon }} {{ $product->price }}</h4>
                             @endif
                             <p class="wsus__pro_rating">
-                                {{-- @php
+                                @php
                                     $avgRating = $product->reviews()->avg('rating');
                                     $fullRating = round($avgRating);
                                 @endphp
@@ -102,7 +103,7 @@
                                     @endif
                                 @endfor
 
-                                <span>({{ count($product->reviews) }} review)</span> --}}
+                                <span>({{ count($product->reviews) }} review)</span>
                             </p>
                             <p class="description">{!! $product->short_description !!}</p>
 
@@ -119,7 +120,8 @@
                                                             @if ($variantItem->status != 0)
                                                                 <option value="{{ $variantItem->id }}"
                                                                     {{ $variantItem->is_default == 1 ? 'selected' : '' }}>
-                                                                    {{ $variantItem->name }} ({{ $variantItem->price }}{{$settings->currency_icon}})
+                                                                    {{ $variantItem->name }}
+                                                                    ({{ $variantItem->price }}{{ $settings->currency_icon }})
                                                                 </option>
                                                             @endif
                                                         @endforeach
@@ -218,7 +220,7 @@
                                                 <div class="wsus__pro_det_vendor_text">
                                                     <h4>{{ $product->vendor->name }}</h4>
                                                     <p class="rating">
-                                                        {{-- @php
+                                                        @php
                                                             $avgRating = $product->reviews()->avg('rating');
                                                             $fullRating = round($avgRating);
                                                         @endphp
@@ -231,7 +233,7 @@
                                                             @endif
                                                         @endfor
 
-                                                        <span>({{ count($product->reviews) }} review)</span> --}}
+                                                        <span>({{ count($product->reviews) }} review)</span>
                                                     </p>
                                                     <p><span>Store Name:</span> {{ $product->vendor->shop_name }}</p>
                                                     <p><span>Address:</span> {{ $product->vendor->address }}</p>
@@ -254,7 +256,7 @@
                                         <div class="wsus__pro_det_review_single">
                                             <div class="row">
                                                 <div class="col-xl-8 col-lg-7">
-                                                    {{-- <div class="wsus__comment_area">
+                                                    <div class="wsus__comment_area">
                                                         <h4>Reviews <span>{{ count($reviews) }}</span></h4>
                                                         @foreach ($reviews as $review)
                                                             <div class="wsus__main_comment">
@@ -288,9 +290,9 @@
                                                                 {{ $reviews->links() }}
                                                             @endif
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
                                                 </div>
-                                                {{-- <div class="col-xl-4 col-lg-5 mt-4 mt-lg-0">
+                                                <div class="col-xl-4 col-lg-5 mt-4 mt-lg-0">
                                                     @auth
                                                         @php
                                                             $isBrought = false;
@@ -317,6 +319,7 @@
                                                                 <form action="{{ route('user.review.create') }}"
                                                                     enctype="multipart/form-data" method="POST">
                                                                     @csrf
+                                                                    <input type="hidden" name="vendor_id" value='$product->vendor_id'>
                                                                     <p class="rating">
                                                                         <span>select your rating : </span>
                                                                     </p>
@@ -362,7 +365,7 @@
                                                         @endif
                                                     @endauth
 
-                                                </div> --}}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -377,8 +380,8 @@
         </div>
     </section>
     <!--============================
-            PRODUCT DETAILS END
-        ==============================-->
+                        PRODUCT DETAILS END
+                    ==============================-->
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

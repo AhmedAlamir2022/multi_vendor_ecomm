@@ -1,13 +1,13 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-Frontend || Flash Sale
+    Frontend || Flash Sale
 @endsection
 
 @section('content')
     <!--============================
-            BREADCRUMB START
-        ==============================-->
+                BREADCRUMB START
+            ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -15,7 +15,7 @@ Frontend || Flash Sale
                     <div class="col-12">
                         <h4>Flash Sale</h4>
                         <ul>
-                            <li><a href="{{url('/')}}">Home</a></li>
+                            <li><a href="{{ url('/') }}">Home</a></li>
                             <li><a href="javascript:;">Flash Sale</a></li>
                         </ul>
                     </div>
@@ -24,13 +24,13 @@ Frontend || Flash Sale
         </div>
     </section>
     <!--============================
-            BREADCRUMB END
-        ==============================-->
+                BREADCRUMB END
+            ==============================-->
 
 
     <!--============================
-            DAILY DEALS DETAILS START
-        ==============================-->
+                DAILY DEALS DETAILS START
+            ==============================-->
     <section id="wsus__daily_deals">
         <div class="container">
             <div class="wsus__offer_details_area">
@@ -52,8 +52,11 @@ Frontend || Flash Sale
 
                 <div class="row">
                     @php
-                        $products = \App\Models\Product::with(['variants', 'category', 'productImageGalleries'])
-                        ->whereIn('id', $flashSaleItems)->get();
+                        $products = \App\Models\Product::withAvg('reviews', 'rating')
+                            ->withCount('reviews')
+                            ->with(['variants', 'category', 'productImageGalleries'])
+                            ->whereIn('id', $flashSaleItems)
+                            ->get();
                     @endphp
                     @foreach ($products as $product)
                         <x-product-card :product="$product" />
@@ -68,19 +71,18 @@ Frontend || Flash Sale
         </div>
     </section>
     <!--============================
-            DAILY DEALS DETAILS END
-        ==============================-->
-
+                DAILY DEALS DETAILS END
+            ==============================-->
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function(){
-        simplyCountdown('.simply-countdown-one', {
-            year: {{date('Y', strtotime($flashSaleDate->end_date))}},
-            month: {{date('m', strtotime($flashSaleDate->end_date))}},
-            day: {{date('d', strtotime($flashSaleDate->end_date))}},
-        });
-    })
-</script>
+    <script>
+        $(document).ready(function() {
+            simplyCountdown('.simply-countdown-one', {
+                year: {{ date('Y', strtotime($flashSaleDate->end_date)) }},
+                month: {{ date('m', strtotime($flashSaleDate->end_date)) }},
+                day: {{ date('d', strtotime($flashSaleDate->end_date)) }},
+            });
+        })
+    </script>
 @endpush
