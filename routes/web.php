@@ -7,12 +7,15 @@ use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\Frontend\FlashSaleController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsletterController;
+use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Http\Controllers\Frontend\ProductTrackController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserOrderController;
 use App\Http\Controllers\Frontend\UserProfileController;
+use App\Http\Controllers\Frontend\UserVendorReqeustController;
 use App\Http\Controllers\Frontend\WishlistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -130,6 +133,23 @@ Route::get('wishlist/add-product', [WishlistController::class, 'addToWishlist'])
 Route::post('newsletter-request', [NewsletterController::class, 'newsLetterRequset'])->name('newsletter-request');
 Route::get('newsletter-verify/{token}', [NewsletterController::class, 'newsLetterEmailVarify'])->name('newsletter-verify');
 
+/** vendor page routes */
+Route::get('vendors', [HomeController::class, 'vendorPage'])->name('vendor.index');
+Route::get('vendor-product/{id}', [HomeController::class, 'vendorProductsPage'])->name('vendor.products');
+
+/** about page route */
+Route::get('about', [PageController::class, 'about'])->name('about');
+
+/** terms and conditions page route */
+Route::get('terms-and-conditions', [PageController::class, 'termsAndCondition'])->name('terms-and-conditions');
+
+/** contact route */
+Route::get('contact', [PageController::class, 'contact'])->name('contact');
+Route::post('contact', [PageController::class, 'handleContactForm'])->name('handle-contact-form');
+
+/** Product track route */
+Route::get('product-traking', [ProductTrackController::class, 'index'])->name('product-traking.index');
+
 
 Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 'user.'], function () {
     //  user dashboard
@@ -154,6 +174,10 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
     /** product review routes */
     Route::get('reviews', [ReviewController::class, 'index'])->name('review.index');
     Route::post('review', [ReviewController::class, 'create'])->name('review.create');
+
+    /** Vendor request route */
+    Route::get('vendor-request', [UserVendorReqeustController::class, 'index'])->name('vendor-request.index');
+    Route::post('vendor-request', [UserVendorReqeustController::class, 'create'])->name('vendor-request.create');
 
     /** Checkout routes */
     Route::get('checkout', [CheckOutController::class, 'index'])->name('checkout');

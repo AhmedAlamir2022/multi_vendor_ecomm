@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Adverisement;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\HomePageSetting;
 use App\Models\Product;
 use App\Models\Slider;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Response;
@@ -70,20 +72,20 @@ class HomeController extends Controller
         $typeBaseProducts = [];
 
         $typeBaseProducts['new_arrival'] = Product::withAvg('reviews', 'rating')->withCount('reviews')
-        ->with(['variants', 'category', 'productImageGalleries'])
-        ->where(['product_type' => 'new_arrival', 'is_approved' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(8)->get();
+            ->with(['variants', 'category', 'productImageGalleries'])
+            ->where(['product_type' => 'new_arrival', 'is_approved' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(8)->get();
 
         $typeBaseProducts['featured_product'] = Product::withAvg('reviews', 'rating')->withCount('reviews')
-        ->with(['variants', 'category', 'productImageGalleries'])
-        ->where(['product_type' => 'featured_product', 'is_approved' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(8)->get();
+            ->with(['variants', 'category', 'productImageGalleries'])
+            ->where(['product_type' => 'featured_product', 'is_approved' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(8)->get();
 
         $typeBaseProducts['top_product'] = Product::withAvg('reviews', 'rating')->withCount('reviews')
-        ->with(['variants', 'category', 'productImageGalleries'])
-        ->where(['product_type' => 'top_product', 'is_approved' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(8)->get();
+            ->with(['variants', 'category', 'productImageGalleries'])
+            ->where(['product_type' => 'top_product', 'is_approved' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(8)->get();
 
         $typeBaseProducts['best_product'] = Product::withAvg('reviews', 'rating')->withCount('reviews')
-        ->with(['variants', 'category', 'productImageGalleries'])
-        ->where(['product_type' => 'best_product', 'is_approved' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(8)->get();
+            ->with(['variants', 'category', 'productImageGalleries'])
+            ->where(['product_type' => 'best_product', 'is_approved' => 1, 'status' => 1])->orderBy('id', 'DESC')->take(8)->get();
 
         return $typeBaseProducts;
     }
@@ -95,5 +97,22 @@ class HomeController extends Controller
         return Response::make($content, 200, ['Content-Type' => 'text/html']);
     }
 
+    public function vendorPage()
+    {
+        $vendors = User::where('status', 'active')->where('role', 'vendor')->paginate(8);
+        return view('frontend.pages.vendors', compact('vendors'));
+    }
 
+    public function vendorProductsPage(string $id)
+    {
+
+        $products = Product::where(['status' => 1, 'is_approved' => 1, 'vendor_id' => $id])->orderBy('id', 'DESC')->paginate(12);
+
+        $categories = Category::where(['status' => 1])->get();
+        $brands = Brand::where(['status' => 1])->get();
+        $vendor = User::findOrFail($id);
+
+        return view('frontend.pages.vendor-product', compact('products', 'categories', 'brands', 'vendor'));
+
+    }
 }

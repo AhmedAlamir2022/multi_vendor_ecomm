@@ -23,16 +23,22 @@
                     <ul class="wsus_menu_cat_item show_home toggle_menu">
 
                         @foreach ($categories as $category)
-                            <li><a class="{{count($category->subCategories) > 0 ? 'wsus__droap_arrow' : ''}}" href="{{route('products.index', ['category' => $category->slug])}}"><i class="{{$category->icon}}"></i> {{$category->name}} </a>
+                            <li><a class="{{ count($category->subCategories) > 0 ? 'wsus__droap_arrow' : '' }}"
+                                    href="{{ route('products.index', ['category' => $category->slug]) }}"><i
+                                        class="{{ $category->icon }}"></i> {{ $category->name }} </a>
                                 @if (count($category->subCategories) > 0)
                                     <ul class="wsus_menu_cat_droapdown">
                                         @foreach ($category->subCategories as $subCategory)
-                                            <li><a href="{{route('products.index', ['subcategory' => $subCategory->slug])}}">{{ $subCategory->name }} <i
+                                            <li><a
+                                                    href="{{ route('products.index', ['subcategory' => $subCategory->slug]) }}">{{ $subCategory->name }}
+                                                    <i
                                                         class="{{ count($subCategory->childCategories) > 0 ? 'fas fa-angle-right' : '' }}"></i></a>
                                                 @if (count($subCategory->childCategories) > 0)
                                                     <ul class="wsus__sub_category">
                                                         @foreach ($subCategory->childCategories as $childCategory)
-                                                            <li><a href="{{route('products.index', ['childcategory' => $childCategory->slug])}}">{{ $childCategory->name }}</a> </li>
+                                                            <li><a
+                                                                    href="{{ route('products.index', ['childcategory' => $childCategory->slug]) }}">{{ $childCategory->name }}</a>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 @endif
@@ -45,12 +51,16 @@
                     </ul>
 
                     <ul class="wsus__menu_item">
-                        <li><a href="{{ url('/') }}">home</a></li>
-                        <li><a href="{{ route('products.index') }}">Products</a></li>
-                        <li><a href="">vendors</a></li>
+                        <li><a class="{{ setActive(['home']) }}" href="{{ url('/') }}">home</a></li>
+                        <li><a class="{{ setActive(['products.index']) }}"
+                                href="{{ route('products.index') }}">Products</a></li>
+                        <li><a class="{{ setActive(['vendor.index']) }}"
+                                href="{{ route('vendor.index') }}">vendors</a></li>
                         <li><a href="">blog</a></li>
-                        <li><a href="">about</a></li>
-                        <li><a href="">contact</a></li>
+                        <li><a class="{{ setActive(['product-traking.index']) }}"
+                                href="{{ route('product-traking.index') }}">track Order</a></li>
+                        <li><a class="{{ setActive(['about']) }}" href="{{ route('about') }}">about</a></li>
+                        <li><a class="{{ setActive(['contact']) }}" href="{{ route('contact') }}">contact</a></li>
 
 
                     </ul>
