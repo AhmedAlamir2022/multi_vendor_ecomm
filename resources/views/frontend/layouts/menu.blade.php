@@ -56,7 +56,7 @@
                                 href="{{ route('products.index') }}">Products</a></li>
                         <li><a class="{{ setActive(['vendor.index']) }}"
                                 href="{{ route('vendor.index') }}">vendors</a></li>
-                        <li><a href="">blog</a></li>
+                        <li><a class="{{ setActive(['blog']) }}" href="{{ route('blog') }}">blog</a></li>
                         <li><a class="{{ setActive(['product-traking.index']) }}"
                                 href="{{ route('product-traking.index') }}">track Order</a></li>
                         <li><a class="{{ setActive(['about']) }}" href="{{ route('about') }}">about</a></li>
