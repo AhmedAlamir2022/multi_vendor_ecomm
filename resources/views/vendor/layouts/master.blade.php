@@ -10,7 +10,7 @@
     <title>
         @yield('title')
     </title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/png" href="{{ asset($logoSetting->favicon) }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/select2.min.css') }}">
@@ -32,7 +32,9 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
-    <!-- <link rel="stylesheet" href="css/rtl.css"> -->
+    @if ($settings->layout === 'RTL')
+        <link rel="stylesheet" href="{{ asset('frontend/css/rtl.css') }}">
+    @endif
     {{-- <script>
         const USER = {
             id: "{{ auth()->user()->id }}",

@@ -8,6 +8,8 @@
     <title>Admin Dashboard</title>
 
     <!-- General CSS Files -->
+    <link rel="icon" type="image/png" href="{{ asset($logoSetting->favicon) }}">
+    <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/fontawesome/css/all.min.css') }}">
 
@@ -23,17 +25,17 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/modules/select2/dist/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap-iconpicker.min.css') }}">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/css/components.css') }}">
 
-    {{-- @if ($settings->layout === 'RTL')
+    @if ($settings->layout === 'RTL')
         <link rel="stylesheet" href="{{ asset('backend/assets/css/rtl.css') }}">
     @endif
 
-    <script>
+
+    {{-- <script>
         const USER = {
             id: "{{ auth()->user()->id }}",
             name: "{{ auth()->user()->nmae }}",

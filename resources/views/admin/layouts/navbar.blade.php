@@ -16,7 +16,7 @@
                     <i class="far fa-user"></i> Profile
                 </a>
 
-                <a href="#" class="dropdown-item has-icon">
+                <a href="{{ route('admin.settings.index') }}" class="dropdown-item has-icon">
                     <i class="fas fa-cog"></i> Settings
                 </a>
                 <div class="dropdown-divider"></div>
@@ -24,7 +24,8 @@
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i> Logout
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"
+                        class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </form>
             </div>
