@@ -1,5 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap');
 *{
     direction: rtl;
+}
+
+body {
+    scroll-behavior: smooth;
+    font-family: Cairo, Tahoma, Arial;
+    overflow-x: hidden;
+    background: #f5f6f7;
 }
 
 /* HOME PAGE START */
@@ -49,7 +57,7 @@
 	left: 20px;
 }
 
-.wsus__category_search .select2-container 
+.wsus__category_search .select2-container
 .select2-selection--single {
 	border-right: 0;
 	border-left: 2px solid #b0d8ff;
@@ -184,7 +192,7 @@
 	left: 12px;
 }
 
-#wsus__hot_deals .nxt_arr, 
+#wsus__hot_deals .nxt_arr,
 #wsus__hot_deals .prv_arr {
 	transform: rotateY(180deg);
 }
@@ -270,7 +278,7 @@
 }
 
 
-#wsus__weekly_best .nxt_arr, 
+#wsus__weekly_best .nxt_arr,
 #wsus__weekly_best .prv_arr {
 
 	right: auto;
@@ -338,6 +346,10 @@
 .wsus__hot_deals_text {
 	padding-left: 0;
 	padding-right: 20px;
+}
+
+.wsus__menu_item_right {
+    margin-right: auto;
 }
 
 .wsus__menu_item_right li {
@@ -499,14 +511,14 @@
 	padding-right: 25px;
 }
 
-#pagination nav ul li a, 
+#pagination nav ul li a,
 #pagination2 nav ul li a {
 
 	margin-right: 0;
 	margin-left: 10px;
 }
 
-#pagination nav ul li a i, 
+#pagination nav ul li a i,
 #pagination2 nav ul li a i {
 	transform: rotateY(180deg);
 	-webkit-transform: rotateY(180deg);
@@ -772,7 +784,7 @@
 	margin-left: 10px;
 }
 
-.wsus__button_area li:nth-child(3) a, 
+.wsus__button_area li:nth-child(3) a,
 .wsus__button_area li:nth-child(4) a {
 	margin-left: 0;
 	margin-right: 10px;
@@ -955,6 +967,7 @@
 
 .wsus__single_slider_text {
 	margin-right: 15px;
+    float: left;
 }
 
 .home_2 header .wsus__search button {
@@ -1318,7 +1331,7 @@
 	.wsus__topbar_right li {
 		margin: 0px 15px;
 	}
-	
+
 	.wsus__mobile_menu_close {
 		top: 11px;
 		right: auto;
@@ -1353,7 +1366,7 @@
 		padding-right: 0;
 	}
 	/* HOME PAGE END */
-	
+
 	.wsus__invoice_single.text-md-end {
 		text-align: right !important;
 	}
@@ -1456,7 +1469,7 @@
 		margin-right: 0;
 		margin-left: 10px;
 	}
-	
+
 	.wsus_pro_hot_deals .simply-days-section, .wsus_pro_hot_deals .simply-hours-section, .wsus_pro_hot_deals .simply-minutes-section, .wsus_pro_hot_deals .simply-seconds-section {
 		margin-left: 10px;
 		margin-right: 0;

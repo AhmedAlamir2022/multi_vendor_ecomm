@@ -99,9 +99,6 @@ Route::get('auth/facebook/callback', function () {
     return redirect('user/dashboard');
 });
 
-
-Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
-
 Route::get('flash-sale', [FlashSaleController::class, 'index'])->name('flash-sale');
 
 /** Product route */
@@ -200,7 +197,7 @@ Route::group(['middleware' => ['auth', 'verified'], 'prefix' => 'user', 'as' => 
 
     /** Stripe routes */
     Route::post('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.payment');
-    
+
     /** blog comment routes */
     Route::post('blog-comment', [BlogController::class, 'comment'])->name('blog-comment');
 });

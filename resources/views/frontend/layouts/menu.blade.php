@@ -57,15 +57,13 @@
                         <li><a class="{{ setActive(['vendor.index']) }}"
                                 href="{{ route('vendor.index') }}">vendors</a></li>
                         <li><a class="{{ setActive(['blog']) }}" href="{{ route('blog') }}">blog</a></li>
-                        <li><a class="{{ setActive(['product-traking.index']) }}"
-                                href="{{ route('product-traking.index') }}">track Order</a></li>
                         <li><a class="{{ setActive(['about']) }}" href="{{ route('about') }}">about</a></li>
                         <li><a class="{{ setActive(['contact']) }}" href="{{ route('contact') }}">contact</a></li>
 
 
                     </ul>
                     <ul class="wsus__menu_item wsus__menu_item_right">
-                        {{-- <li><a href="{{ route('product-traking.index') }}">track order</a></li> --}}
+                        <li><a href="{{ route('product-traking.index') }}">track order</a></li>
                         @if (auth()->check())
                             @if (auth()->user()->role === 'user')
                                 <li><a href="{{ route('user.dashboard') }}">my account</a></li>
@@ -162,18 +160,13 @@
             <div class="wsus__mobile_menu_main_menu">
                 <div class="accordion accordion-flush" id="accordionFlushExample2">
                     <ul>
-                        <li><a href="">home</a></li>
-
-                        <li><a href="">vendor</a></li>
-
-                        <li><a href="">blog</a></li>
-                        <li><a href="">about us</a></li>
-                        <li><a href="">contact</a></li>
-
-
-
-                        <li><a href="">track order</a></li>
-                        <li><a href="">flash sale</a></li>
+                        <li><a href="{{route('home')}}">home</a></li>
+                        <li><a href="{{route('vendor.index')}}">vendor</a></li>
+                        <li><a href="{{route('blog')}}">blog</a></li>
+                        <li><a href="{{route('about')}}">about us</a></li>
+                        <li><a href="{{route('contact')}}">contact</a></li>
+                        <li><a href="{{route('product-traking.index')}}">track order</a></li>
+                        <li><a href="{{route('flash-sale')}}">flash sale</a></li>
                     </ul>
                 </div>
             </div>
