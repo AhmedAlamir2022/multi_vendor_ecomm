@@ -97,7 +97,7 @@ Contact Us || {{$settings->site_name}}
                                             <textarea cols="3" rows="5" placeholder="Message" name="message"></textarea>
                                         </div>
                                         <button type="submit" class="common_btn" id="form-submit">send now</button>
-                                    </div>
+                                    </div> 
                                 </div>
                             </form>
                         </div>

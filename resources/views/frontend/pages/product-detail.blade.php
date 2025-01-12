@@ -395,8 +395,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="">Message</label>
-                            <textarea name="message" class="form-control mt-2 message-box"></textarea>
-                            <input type="hidden" name="receiver_id" value="{{ $product->vendor->user_id }}">
+                            <textarea name="message" class="form-control  mt-2 message-box"></textarea>
+                            <input type="hidden" name="receiver_id" value="{{ $product->vendor_id }}">
                         </div>
 
                         <button type="submit" class="btn add_cart mt-4 send-button">Send</button>
@@ -411,7 +411,7 @@
 @endsection
 
 @push('scripts')
-    {{-- <script>
+    <script>
         $(document).ready(function() {
             $('.message_modal').on('submit', function(e) {
                 e.preventDefault();
@@ -420,6 +420,7 @@
                 $.ajax({
                     method: 'POST',
                     url: '{{ route('user.send-message') }}',
+
                     data: formData,
                     beforeSend: function() {
                         let html =
@@ -449,5 +450,5 @@
                 })
             })
         })
-    </script> --}}
+    </script>
 @endpush

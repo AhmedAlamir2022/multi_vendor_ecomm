@@ -180,7 +180,8 @@
                 </ul>
             </li>
 
-            <li><a class="nav-link" href=""><i class="fas fa-user"></i>
+            <li><a class="nav-link {{ setActive(['admin.messages.index']) }}"
+                    href="{{ route('admin.messages.index') }}"><i class="fas fa-user"></i>
                     <span>Messages</span></a></li>
 
 
