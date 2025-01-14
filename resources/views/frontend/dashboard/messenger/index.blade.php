@@ -54,13 +54,13 @@
                                                 aria-labelledby="v-pills-home-tab">
                                                 <div id="chat_box">
                                                     <div class="wsus__chat_area"
-                                                        style="position: relative;
-                                            height: 65vh;">
+                                                        >
 
                                                         <div class="wsus__chat_area_header">
                                                             <h2 id="chat-inbox-title">Chat with Daniel Paul</h2>
                                                         </div>
-                                                        <div class="wsus__chat_area_body" data-inbox="">
+                                                        <div class="wsus__chat_area_body" data-inbox="" style="position: relative;
+                                            height: 65vh;">
                                                         </div>
 
                                                     </div>
