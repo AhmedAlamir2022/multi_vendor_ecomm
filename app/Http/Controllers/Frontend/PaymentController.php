@@ -35,7 +35,6 @@ class PaymentController extends Controller
     public function storeOrder($paymentMethod, $paymentStatus, $transactionId, $paidAmount, $paidCurrencyName)
     {
         $setting = GeneralSetting::first();
-
         $order = new Order();
         $order->invocie_id = rand(1, 999999);
         $order->user_id = Auth::user()->id;
@@ -65,7 +64,6 @@ class PaymentController extends Controller
             $orderProduct->unit_price = $item->price;
             $orderProduct->qty = $item->qty;
             $orderProduct->save();
-
             // update product quantity
             $updatedQty = ($product->qty - $item->qty);
             $product->qty = $updatedQty;
@@ -121,14 +119,12 @@ class PaymentController extends Controller
     {
         $config = $this->paypalConfig();
         $paypalSetting = PaypalSetting::first();
-
         $provider = new PayPalClient($config);
         $provider->getAccessToken();
 
         // calculate payable amount depending on currency rate
         $total = getFinalPayableAmount();
         $payableAmount = round($total * $paypalSetting->currency_rate, 2);
-
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
@@ -144,7 +140,6 @@ class PaymentController extends Controller
                 ]
             ]
         ]);
-
         if (isset($response['id']) && $response['id'] != null) {
             foreach ($response['links'] as $link) {
                 if ($link['rel'] === 'approve') {
@@ -160,22 +155,17 @@ class PaymentController extends Controller
         $config = $this->paypalConfig();
         $provider = new PayPalClient($config);
         $provider->getAccessToken();
-
         $response = $provider->capturePaymentOrder($request->token);
-
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-
             // calculate payable amount depending on currency rate
             $paypalSetting = PaypalSetting::first();
             $total = getFinalPayableAmount();
             $paidAmount = round($total * $paypalSetting->currency_rate, 2);
-
             $this->storeOrder('paypal', 1, $response['id'], $paidAmount, $paypalSetting->currency_name);
             // clear session
             $this->clearSession();
             return redirect()->route('user.payment.success');
         }
-
         return redirect()->route('user.paypal.cancel');
     }
 
@@ -189,7 +179,6 @@ class PaymentController extends Controller
 
     public function payWithStripe(Request $request)
     {
-
         // calculate payable amount depending on currency rate
         $stripeSetting = StripeSetting::first();
         $total = getFinalPayableAmount();
@@ -202,12 +191,10 @@ class PaymentController extends Controller
             "source" => $request->stripe_token,
             "description" => "product purchase!"
         ]);
-
         if ($response->status === 'succeeded') {
             $this->storeOrder('stripe', 1, $response->id, $payableAmount, $stripeSetting->currency_name);
             // clear session
             $this->clearSession();
-
             return redirect()->route('user.payment.success');
         } else {
             toastr('Someting went wrong try agin later!', 'error', 'Error');

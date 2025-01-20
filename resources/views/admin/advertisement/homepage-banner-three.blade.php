@@ -14,7 +14,7 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <img src="{{asset(@$homepage_secion_banner_two->banner_one->banner_image)}}" alt="" width="150px">
+                    <img src="{{asset(@$homepage_secion_banner_three->banner_one->banner_image)}}" alt="" width="150px">
                 </div>
                 <div class="form-group">
 

@@ -33,6 +33,22 @@
                     <div class="col-xl-6 col-lg-6">
                         @if ($homepage_secion_banner_three->banner_one->status == 1)
                             <div class="wsus__single_banner_content banner_1">
+                                <div class="wsus__single_banner_img">
+                                    <img src="{{ asset($homepage_secion_banner_three->banner_one->banner_image) }}"
+                                        alt="banner" class="img-fluid w-100">
+                                </div>
+                                <div class="wsus__single_banner_text">
+                                    <h6>sell on <span>42% off</span></h6>
+                                    <h3>winter collection</h3>
+                                    <a class="shop_btn"
+                                        href="{{ $homepage_secion_banner_three->banner_one->banner_url }}">shop now</a>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                    {{-- <div class="col-xl-6 col-lg-6">
+                        @if ($homepage_secion_banner_three->banner_one->status == 1)
+                            <div class="wsus__single_banner_content banner_1">
                                 <a href="{{ $homepage_secion_banner_three->banner_one->banner_url }}">
                                     <img class="img-gluid"
                                         src="{{ asset($homepage_secion_banner_three->banner_one->banner_image) }}"
@@ -40,10 +56,27 @@
                                 </a>
                             </div>
                         @endif
-                    </div>
+                    </div> --}}
                     <div class="col-xl-6 col-lg-6">
                         <div class="row">
                             <div class="col-12">
+                                @if ($homepage_secion_banner_three->banner_two->status == 1)
+                                    <div class="wsus__single_banner_content single_banner_2">
+                                        <div class="wsus__single_banner_img">
+                                            <img src="{{ asset($homepage_secion_banner_three->banner_two->banner_image) }}"
+                                                alt="banner" class="img-fluid w-100">
+                                        </div>
+                                        <div class="wsus__single_banner_text">
+                                            <h6>New Collection</h6>
+                                            <h3>kid's fashion</h3>
+                                            <a class="shop_btn"
+                                                href="{{ $homepage_secion_banner_three->banner_two->banner_url }}">shop
+                                                now</a>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            {{-- <div class="col-12">
                                 @if ($homepage_secion_banner_three->banner_two->status == 1)
                                     <div class="wsus__single_banner_content single_banner_2">
                                         <a href="{{ $homepage_secion_banner_three->banner_two->banner_url }}">
@@ -53,8 +86,22 @@
                                         </a>
                                     </div>
                                 @endif
-                            </div>
+                            </div> --}}
                             <div class="col-12 mt-lg-4">
+                                <div class="wsus__single_banner_content">
+                                    @if ($homepage_secion_banner_three->banner_three->status == 1)
+                                    <div class="wsus__single_banner_img">
+                                        <img src="{{ asset($homepage_secion_banner_three->banner_three->banner_image) }}" alt="banner" class="img-fluid w-100">
+                                    </div>
+                                    <div class="wsus__single_banner_text">
+                                        <h6>sell on <span>35% off</span></h6>
+                                        <h3>smart watches</h3>
+                                        <a class="shop_btn" href="{{ $homepage_secion_banner_three->banner_three->banner_url }}">shop now</a>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                            {{-- <div class="col-12 mt-lg-4">
                                 <div class="wsus__single_banner_content">
                                     @if ($homepage_secion_banner_three->banner_three->status == 1)
                                         <a href="{{ $homepage_secion_banner_three->banner_three->banner_url }}">
@@ -65,7 +112,7 @@
                                     @endif
 
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

@@ -6,8 +6,8 @@
 
 @section('content')
     <!--============================
-            BREADCRUMB START
-        ==============================-->
+                BREADCRUMB START
+            ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -15,7 +15,7 @@
                     <div class="col-12">
                         <h4>cart View</h4>
                         <ul>
-                            <li><a href="{{url('/')}}">home</a></li>
+                            <li><a href="{{ url('/') }}">home</a></li>
                             <li><a href="javascript:;">product</a></li>
                             <li><a href="javascript:;">cart view</a></li>
                         </ul>
@@ -25,13 +25,13 @@
         </div>
     </section>
     <!--============================
-            BREADCRUMB END
-        ==============================-->
+                BREADCRUMB END
+            ==============================-->
 
 
     <!--============================
-            CART VIEW PAGE START
-        ==============================-->
+                CART VIEW PAGE START
+            ==============================-->
     <section id="wsus__cart_view">
         <div class="container">
             <div class="row">
@@ -77,7 +77,8 @@
                                                 <p>{!! $item->name !!}</p>
                                                 @foreach ($item->options->variants as $key => $variant)
                                                     <span>{{ $key }}: {{ $variant['name'] }}
-                                                        ({{ $settings->currency_icon . $variant['price'] }})</span>
+                                                        ({{ $settings->currency_icon . $variant['price'] }})
+                                                    </span>
                                                 @endforeach
 
                                             </td>
@@ -137,7 +138,7 @@
                             <button type="submit" class="common_btn">apply</button>
                         </form>
                         <a class="common_btn mt-4 w-100 text-center" href="{{ route('user.checkout') }}">checkout</a>
-                        <a class="common_btn mt-1 w-100 text-center" href="{{ route('home') }}"><i
+                        <a class="common_btn mt-1 w-100 text-center" href="{{ route('products.index') }}"><i
                                 class="fab fa-shopify"></i> Keep Shopping</a>
                     </div>
                 </div>
@@ -149,28 +150,40 @@
             <div class="row">
                 <div class="col-xl-6 col-lg-6">
                     <div class="wsus__single_banner_content">
-                            @if ($cartpage_banner_section->banner_one->status == 1)
-                            <a href="{{$cartpage_banner_section->banner_one->banner_url}}">
-                                <img class="img-gluid" src="{{asset($cartpage_banner_section->banner_one->banner_image)}}" alt="">
-                            </a>
-                            @endif
+                        @if ($cartpage_banner_section->banner_one->status == 1)
+                            <div class="wsus__single_banner_img">
+                                <img src="{{ asset($cartpage_banner_section->banner_one->banner_image) }}" alt="banner"
+                                    class="img-fluid w-100">
+                            </div>
+                            <div class="wsus__single_banner_text">
+                                <h6>sell on <span>35% off</span></h6>
+                                <h3>smart watch</h3>
+                                <a class="shop_btn" href="{{ $cartpage_banner_section->banner_one->banner_url }}">shop
+                                    now</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6">
                     <div class="wsus__single_banner_content single_banner_2">
-                            @if ($cartpage_banner_section->banner_two->status == 1)
-                            <a href="{{$cartpage_banner_section->banner_two->banner_url}}">
-                                <img class="img-gluid" src="{{asset($cartpage_banner_section->banner_two->banner_image)}}" alt="">
-                            </a>
-                            @endif
+                        @if ($cartpage_banner_section->banner_two->status == 1)
+                        <div class="wsus__single_banner_img">
+                            <img src="{{ asset($cartpage_banner_section->banner_two->banner_image) }}" alt="banner" class="img-fluid w-100">
+                        </div>
+                        <div class="wsus__single_banner_text">
+                            <h6>New Collection</h6>
+                            <h3>Perfumes</h3>
+                            <a class="shop_btn" href="{{ $cartpage_banner_section->banner_two->banner_url }}">shop now</a>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!--============================
-              CART VIEW PAGE END
-        ==============================-->
+                  CART VIEW PAGE END
+            ==============================-->
 @endsection
 
 @push('scripts')

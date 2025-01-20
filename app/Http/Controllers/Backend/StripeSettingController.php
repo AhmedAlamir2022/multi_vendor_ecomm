@@ -32,8 +32,7 @@ class StripeSettingController extends Controller
                 'secret_key' => $request->secret_key,
             ]
         );
-
-        toastr('Updated Successfully!', 'success', 'Success');
+        toastr('Updated Successfully!', 'info', 'Success');
         return redirect()->back();
     }
 }

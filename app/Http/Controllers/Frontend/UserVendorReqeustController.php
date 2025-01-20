@@ -30,13 +30,10 @@ class UserVendorReqeustController extends Controller
             'address' => ['required'],
             'description' => ['required']
         ]);
-
         if(Auth::user()->role === 'vendor'){
             return redirect()->back();
         }
-
         $imagePath = $this->uploadImage($request, 'banner', 'uploads');
-
         $id = Auth::user()->id;
         $vendor = User::findOrFail($id);
         $vendor->banner = $imagePath;
@@ -45,11 +42,8 @@ class UserVendorReqeustController extends Controller
         $vendor->description = $request->description;
         $vendor->shop_name = $request->shop_name;
         $vendor->vendor_status = 0;
-
         $vendor->save();
-
         toastr('Submitted successfully please wait for approve!', 'success', 'success');
-
         return redirect()->back();
 
     }

@@ -30,7 +30,6 @@ class CheckOutController extends Controller
             'zip' => ['required', 'max: 200'],
             'address' => ['required', 'max: 200']
         ]);
-
         $address = new UserAddress();
         $address->user_id = Auth::user()->id;
         $address->name = $request->name;
@@ -42,7 +41,6 @@ class CheckOutController extends Controller
         $address->zip = $request->zip;
         $address->address = $request->address;
         $address->save();
-
         toastr('Address created successfully!', 'success', 'Success');
         return redirect()->back();
     }
@@ -53,7 +51,6 @@ class CheckOutController extends Controller
             'shipping_method_id' => ['required', 'integer'],
             'shipping_address_id' => ['required', 'integer'],
         ]);
-
         $shippingMethod = ShippingRule::findOrFail($request->shipping_method_id);
         if ($shippingMethod) {
             Session::put('shipping_method', [
@@ -67,7 +64,6 @@ class CheckOutController extends Controller
         if ($address) {
             Session::put('address', $address);
         }
-
         return response(['status' => 'success', 'redirect_url' => route('user.payment')]);
     }
 }

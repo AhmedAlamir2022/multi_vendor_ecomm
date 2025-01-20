@@ -18,16 +18,13 @@ class CartController extends Controller
     public function cartDetails()
     {
         $cartItems = Cart::content();
-
         if (count($cartItems) === 0) {
             Session::forget('coupon');
             toastr('Please add some products in your cart for view the cart page', 'warning', 'Cart is empty!');
             return redirect()->route('home');
         }
-
         $cartpage_banner_section = Adverisement::where('key', 'cartpage_banner_section')->first();
         $cartpage_banner_section = json_decode($cartpage_banner_section?->value);
-
         return view('frontend.pages.cart-detail', compact('cartItems', 'cartpage_banner_section'));
     }
 
@@ -35,17 +32,14 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $product = Product::findOrFail($request->product_id);
-
         // check product quantity
         if ($product->qty === 0) {
             return response(['status' => 'error', 'message' => 'Product stock out']);
         } elseif ($product->qty < $request->qty) {
             return response(['status' => 'error', 'message' => 'Quantity not available in our stock']);
         }
-
         $variants = [];
         $variantTotalAmount = 0;
-
         if ($request->has('variants_items')) {
             foreach ($request->variants_items as $item_id) {
                 $variantItem = ProductVariantItem::find($item_id);
@@ -56,13 +50,11 @@ class CartController extends Controller
         }
         /** check discount */
         $productPrice = 0;
-
         if (checkDiscount($product)) {
             $productPrice = $product->offer_price;
         } else {
             $productPrice = $product->price;
         }
-
         $cartData = [];
         $cartData['id'] = $product->id;
         $cartData['name'] = $product->name;
@@ -73,7 +65,6 @@ class CartController extends Controller
         $cartData['options']['variants_total'] = $variantTotalAmount;
         $cartData['options']['image'] = $product->thumb_image;
         $cartData['options']['slug'] = $product->slug;
-
         Cart::add($cartData);
         return response(['status' => 'success', 'message' => 'Added to cart successfully!']);
     }
@@ -91,17 +82,14 @@ class CartController extends Controller
     {
         $productId = Cart::get($request->rowId)->id;
         $product = Product::findOrFail($productId);
-
         // check product quantity
         if ($product->qty === 0) {
             return response(['status' => 'error', 'message' => 'Product stock out']);
         } elseif ($product->qty < $request->qty) {
             return response(['status' => 'error', 'message' => 'Quantity not available in our stock']);
         }
-
         Cart::update($request->rowId, $request->quantity);
         $productTotal = $this->getProductTotal($request->rowId);
-
         return response(['status' => 'success', 'message' => 'Product Quantity Updated!', 'product_total' => $productTotal]);
     }
 
@@ -114,7 +102,6 @@ class CartController extends Controller
         }
         return $total;
     }
-
 
     /** clear all cart products */
     public function clearCart()
@@ -156,9 +143,7 @@ class CartController extends Controller
         if($request->coupon_code === null){
             return response(['status' => 'error', 'message' => 'Coupon filed is required']);
         }
-
         $coupon = Coupon::where(['code' => $request->coupon_code, 'status' => 1])->first();
-
         if($coupon === null){
             return response(['status' => 'error', 'message' => 'Coupon not exist!']);
         }elseif($coupon->start_date > date('Y-m-d')){
@@ -168,7 +153,6 @@ class CartController extends Controller
         }elseif($coupon->total_used >= $coupon->quantity){
             return response(['status' => 'error', 'message' => 'you can not apply this coupon']);
         }
-
         if($coupon->discount_type === 'amount'){
             Session::put('coupon', [
                 'coupon_name' => $coupon->name,
@@ -184,7 +168,6 @@ class CartController extends Controller
                 'discount' => $coupon->discount
             ]);
         }
-
         return response(['status' => 'success', 'message' => 'Coupon applied successfully!']);
     }
 

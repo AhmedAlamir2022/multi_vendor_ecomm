@@ -27,13 +27,11 @@ class ReviewController extends Controller
             'images.*' => ['image']
         ]);
         $checkReviewExist = ProductReview::where(['product_id' => $request->product_id, 'user_id' => Auth::user()->id])->first();
-        if($checkReviewExist){
+        if ($checkReviewExist) {
             toastr('You already added a review for this product!', 'error', 'error');
             return redirect()->back();
         }
-
         $imagePaths = $this->uploadMultiImage($request, 'images', 'uploads');
-
         $productReview = new ProductReview();
         $productReview->product_id = $request->product_id;
         $productReview->vendor_id = $request->vendor_id;
@@ -41,21 +39,16 @@ class ReviewController extends Controller
         $productReview->rating = $request->rating;
         $productReview->review = $request->review;
         $productReview->status = 0;
-
         $productReview->save();
-
-        if(!empty($imagePaths)){
-
-            foreach($imagePaths as $path){
+        if (!empty($imagePaths)) {
+            foreach ($imagePaths as $path) {
                 $reviewGallery = new ProductReviewGallery();
                 $reviewGallery->product_review_id = $productReview->id;
                 $reviewGallery->image = $path;
                 $reviewGallery->save();
             }
         }
-
         toastr('Review added successfully!', 'success', 'success');
         return redirect()->back();
-
     }
 }

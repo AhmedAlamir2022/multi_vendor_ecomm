@@ -54,7 +54,7 @@ class ProductDataTable extends DataTable
                         break;
 
                     case 'best_product':
-                        return '<i class="badge badge-danger">Top Product</i>';
+                        return '<i class="badge badge-danger">Best Product</i>';
                         break;
 
                     default:
@@ -85,7 +85,7 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model->where('vendor_id', Auth::user()->id)->newQuery();
+        return $model->where('vendor_id', Auth::user()->id)->newQuery()->orderBy('id', 'desc');
     }
 
     /**

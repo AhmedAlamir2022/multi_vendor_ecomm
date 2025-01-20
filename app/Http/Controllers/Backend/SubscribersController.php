@@ -22,12 +22,10 @@ class SubscribersController extends Controller
             'subject' => ['required'],
             'message' => ['required']
         ]);
-
         $emails = NewsletterSubscriber::where('is_verified', 1)->pluck('email')->toArray();
         Mail::to($emails)->send(new Newsletter($request->subject, $request->message));
         toastr('Mail has been send', 'success', 'success');
         return redirect()->back();
-
     }
 
     public function destory(string $id)

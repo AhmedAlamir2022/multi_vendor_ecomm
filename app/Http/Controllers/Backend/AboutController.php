@@ -19,16 +19,13 @@ class AboutController extends Controller
         $request->validate([
             'content' => ['required']
         ]);
-
         About::updateOrCreate(
             ['id' => 1],
             [
                 'content' => $request->content
             ]
         );
-
-        toastr('updated successfully!', 'success', 'success');
+        toastr('updated successfully!', 'info', 'success');
         return redirect()->back();
-
     }
 }

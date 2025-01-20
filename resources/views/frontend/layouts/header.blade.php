@@ -28,7 +28,7 @@
                             <i class="fas fa-user-headset"></i>
                         </div>
                         <div class="wsus__call_text">
-                            <p>{{ $settings->contact_email }}</p>
+                            <p style='text-transform: lowercase;'>{{ $settings->contact_email }}</p>
                             <p>{{ $settings->contact_phone }}</p>
                         </div>
                     </div>

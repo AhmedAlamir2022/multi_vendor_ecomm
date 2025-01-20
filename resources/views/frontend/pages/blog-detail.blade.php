@@ -6,8 +6,8 @@
 
 @section('content')
     <!--============================
-                BREADCRUMB START
-            ==============================-->
+                        BREADCRUMB START
+                    ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -15,7 +15,7 @@
                     <div class="col-12">
                         <h4>blog dtails</h4>
                         <ul>
-                            <li><a href="{{route('home')}}">home</a></li>
+                            <li><a href="{{ route('home') }}">home</a></li>
                             <li><a href="javascript:;">blog details</a></li>
                         </ul>
                     </div>
@@ -24,13 +24,14 @@
         </div>
     </section>
     <!--============================
-                BREADCRUMB END
-            ==============================-->
+                        BREADCRUMB END
+                    ==============================-->
 
 
     <!--============================
-                BLOGS DETAILS START
-            ==============================-->
+                        BLOGS DETAILS START
+                    ==============================-->
+
     <section id="wsus__blog_details">
         <div class="container">
             <div class="row">
@@ -195,7 +196,8 @@
             </div>
         </div>
     </section>
+
     <!--============================
-                BLOGS DETAILS END
-            ==============================-->
+                        BLOGS DETAILS END
+                    ==============================-->
 @endsection

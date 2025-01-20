@@ -30,7 +30,6 @@ class AdvertisementController extends Controller
         $cartpage_banner_section = Adverisement::where('key', 'cartpage_banner_section')->first();
         $cartpage_banner_section = json_decode($cartpage_banner_section?->value);
 
-
         return view(
             'admin.advertisement.index',
             compact(
@@ -50,10 +49,8 @@ class AdvertisementController extends Controller
             'banner_image' => ['image'],
             'banner_url' => ['required']
         ]);
-
         /** Handle the image upload */
         $imagePath = $this->updateImage($request, 'banner_image', 'uploads');
-
         $value = [
             'banner_one' => [
                 'banner_url' => $request->banner_url,
@@ -63,7 +60,6 @@ class AdvertisementController extends Controller
         if (!empty($imagePath)) {
             $value['banner_one']['banner_image'] = $imagePath;
         } else {
-
             $value['banner_one']['banner_image'] = $request->banner_old_image;
         }
 
@@ -72,14 +68,12 @@ class AdvertisementController extends Controller
             ['key' => 'homepage_secion_banner_one'],
             ['value' => $value]
         );
-
-        toastr('Updated Successfully!', 'success', 'success');
+        toastr('Updated Successfully!', 'info', 'success');
         return redirect()->back();
     }
 
     public function homepageBannerSecionTwo(Request $request)
     {
-
         $request->validate([
             'banner_one_image' => ['image'],
             'banner_one_url' => ['required'],
@@ -90,8 +84,6 @@ class AdvertisementController extends Controller
         /** Handle the image upload */
         $imagePath = $this->updateImage($request, 'banner_one_image', 'uploads');
         $imagePathTwo = $this->updateImage($request, 'banner_two_image', 'uploads');
-
-
         $value = [
             'banner_one' => [
                 'banner_url' => $request->banner_one_url,
@@ -114,14 +106,12 @@ class AdvertisementController extends Controller
 
             $value['banner_two']['banner_image'] = $request->banner_two_old_image;
         }
-
         $value = json_encode($value);
         Adverisement::updateOrCreate(
             ['key' => 'homepage_secion_banner_two'],
             ['value' => $value]
         );
-
-        toastr('Updated Successfully!', 'success', 'success');
+        toastr('Updated Successfully!', 'info', 'success');
         return redirect()->back();
     }
 
@@ -181,7 +171,7 @@ class AdvertisementController extends Controller
             ['value' => $value]
         );
 
-        toastr('Updated Successfully!', 'success', 'success');
+        toastr('Updated Successfully!', 'info', 'success');
         return redirect()->back();
     }
 
@@ -214,7 +204,7 @@ class AdvertisementController extends Controller
             ['value' => $value]
         );
 
-        toastr('Updated Successfully!', 'success', 'success');
+        toastr('Updated Successfully!', 'info', 'success');
         return redirect()->back();
     }
 
@@ -227,7 +217,6 @@ class AdvertisementController extends Controller
 
         /** Handle the image upload */
         $imagePath = $this->updateImage($request, 'banner_image', 'uploads');
-
         $value = [
             'banner_one' => [
                 'banner_url' => $request->banner_url,
@@ -240,15 +229,12 @@ class AdvertisementController extends Controller
 
             $value['banner_one']['banner_image'] = $request->banner_old_image;
         }
-
         $value = json_encode($value);
         Adverisement::updateOrCreate(
             ['key' => 'productpage_banner_section'],
             ['value' => $value]
         );
-
-        toastr('Updated Successfully!', 'success', 'success');
-
+        toastr('Updated Successfully!', 'info', 'success');
         return redirect()->back();
     }
 
@@ -264,8 +250,6 @@ class AdvertisementController extends Controller
         /** Handle the image upload */
         $imagePath = $this->updateImage($request, 'banner_one_image', 'uploads');
         $imagePathTwo = $this->updateImage($request, 'banner_two_image', 'uploads');
-
-
         $value = [
             'banner_one' => [
                 'banner_url' => $request->banner_one_url,
@@ -294,10 +278,7 @@ class AdvertisementController extends Controller
             ['key' => 'cartpage_banner_section'],
             ['value' => $value]
         );
-
-        toastr('Updated Successfully!', 'success', 'success');
-
+        toastr('Updated Successfully!', 'info', 'success');
         return redirect()->back();
-
     }
 }

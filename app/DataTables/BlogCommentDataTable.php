@@ -28,7 +28,7 @@ class BlogCommentDataTable extends DataTable
                 return $deleteBtn;
             })
             ->addColumn('post', function ($query) {
-                return "<a href='" . route('blog-details', $query->blog->slug) . " target='_blank'>" . $query->blog->title . "</a>";
+                return "<a href='" . route('blog-details', $query->blog->slug) . "'>" . $query->blog->title . "</a>";
             })
             ->addColumn('user_name', function ($query) {
                 return $query->user->name;
@@ -45,7 +45,7 @@ class BlogCommentDataTable extends DataTable
      */
     public function query(BlogComment $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('id', 'desc');
     }
 
     /**

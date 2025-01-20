@@ -10,11 +10,10 @@ class ProductTrackController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->has('tracker')){
+        if ($request->has('tracker')) {
             $order = Order::where('invocie_id', $request->tracker)->first();
-
             return view('frontend.pages.product-track', compact('order'));
-        }else {
+        } else {
             return view('frontend.pages.product-track');
         }
     }

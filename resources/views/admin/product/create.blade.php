@@ -62,7 +62,7 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="inputState">Brand</label>
                                             <select id="inputState" class="form-control" name="brand">
@@ -73,38 +73,31 @@
                                             </select>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-6">
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="inputState">Vendors</label>
-                                            <select id="inputState" class="form-control" name="vendor">
-                                                <option value="">Select</option>
-                                                @foreach ($vendors as $vendor)
-                                                    <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <label>SKU</label>
+                                            <input type="text" class="form-control" name="sku"
+                                                value="{{ old('sku') }}">
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                 </div>
-
-
-
-                                <div class="form-group">
-                                    <label>SKU</label>
-                                    <input type="text" class="form-control" name="sku" value="{{ old('sku') }}">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input type="text" class="form-control" name="price"
+                                                value="{{ old('price') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Offer Price</label>
+                                            <input type="text" class="form-control" name="offer_price"
+                                                value="{{ old('offer_price') }}">
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label>Price</label>
-                                    <input type="text" class="form-control" name="price" value="{{ old('price') }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Offer Price</label>
-                                    <input type="text" class="form-control" name="offer_price"
-                                        value="{{ old('offer_price') }}">
-                                </div>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">

@@ -60,7 +60,7 @@ class BlogDataTable extends DataTable
      */
     public function query(Blog $model): QueryBuilder
     {
-        return $model::with('category')->newQuery();
+        return $model::with('category')->newQuery()->orderBy('id', 'desc');
     }
 
     /**

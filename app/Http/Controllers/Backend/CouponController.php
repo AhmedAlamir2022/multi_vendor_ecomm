@@ -9,25 +9,16 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(CouponDataTable $dataTable)
     {
         return $dataTable->render('admin.coupon.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.coupon.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // dd($request->all());
@@ -41,9 +32,7 @@ class CouponController extends Controller
             'discount_type' => ['required', 'max:200'],
             'discount' => ['required', 'integer'],
             'status' => ['required', 'integer']
-
         ]);
-
         $coupon = new Coupon();
         $coupon->name = $request->name;
         $coupon->code = $request->code;
@@ -56,31 +45,16 @@ class CouponController extends Controller
         $coupon->total_used = 0;
         $coupon->status = $request->status;
         $coupon->save();
-
         toastr('Created Successfully', 'success', 'Success');
         return redirect()->route('admin.coupons.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $coupon = Coupon::findOrFail($id);
         return view('admin.coupon.edit', compact('coupon'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -93,9 +67,7 @@ class CouponController extends Controller
             'discount_type' => ['required', 'max:200'],
             'discount' => ['required', 'integer'],
             'status' => ['required', 'integer']
-
         ]);
-
         $coupon = Coupon::findOrFail($id);
         $coupon->name = $request->name;
         $coupon->code = $request->code;
@@ -107,14 +79,10 @@ class CouponController extends Controller
         $coupon->discount = $request->discount;
         $coupon->status = $request->status;
         $coupon->save();
-
-        toastr('Updated Successfully', 'success', 'Success');
+        toastr('Updated Successfully', 'info', 'Success');
         return redirect()->route('admin.coupons.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $coupon = Coupon::findOrFail($id);
@@ -127,7 +95,6 @@ class CouponController extends Controller
         $coupon = Coupon::findOrFail($request->id);
         $coupon->status = $request->status == 'true' ? 1 : 0;
         $coupon->save();
-
         return response(['message' => 'Status has been updated!']);
     }
 }

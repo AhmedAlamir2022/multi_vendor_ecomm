@@ -13,8 +13,8 @@
 
 @section('content')
     <!--============================
-                        BREADCRUMB START
-                    ==============================-->
+                    BREADCRUMB START
+                ==============================-->
     <section id="wsus__breadcrumb">
         <div class="wsus_breadcrumb_overlay">
             <div class="container">
@@ -22,9 +22,9 @@
                     <div class="col-12">
                         <h4>products details</h4>
                         <ul>
-                            <li><a href="{{ url('/') }}">home</a></li>
-                            <li><a href="javascript:;">product</a></li>
-                            <li><a href="javascript:;">product details</a></li>
+                            <li><a href="#">home</a></li>
+                            <li><a href="#">peoduct</a></li>
+                            <li><a href="#">product details</a></li>
                         </ul>
                     </div>
                 </div>
@@ -32,13 +32,13 @@
         </div>
     </section>
     <!--============================
-                        BREADCRUMB END
-                    ==============================-->
+                    BREADCRUMB END
+                ==============================-->
 
 
     <!--============================
-                        PRODUCT DETAILS START
-                    ==============================-->
+                    PRODUCT DETAILS START
+                ==============================-->
     <section id="wsus__product_details">
         <div class="container">
             <div class="wsus__details_bg">
@@ -83,11 +83,11 @@
                                     item)</p>
                             @endif
                             @if (checkDiscount($product))
-                                <h4>{{ $settings->currency_icon }} {{ $product->offer_price }}
-                                    <del>{{ $settings->currency_icon }} {{ $product->price }}</del>
+                                <h4>{{ $settings->currency_icon }}{{ $product->offer_price }}
+                                    <del>{{ $settings->currency_icon }}{{ $product->price }}</del>
                                 </h4>
                             @else
-                                <h4>{{ $settings->currency_icon }} {{ $product->price }}</h4>
+                                <h4>{{ $settings->currency_icon }}{{ $product->price }}</h4>
                             @endif
                             <p class="wsus__pro_rating">
                                 @php
@@ -120,8 +120,7 @@
                                                             @if ($variantItem->status != 0)
                                                                 <option value="{{ $variantItem->id }}"
                                                                     {{ $variantItem->is_default == 1 ? 'selected' : '' }}>
-                                                                    {{ $variantItem->name }}
-                                                                    ({{ $variantItem->price }}{{ $settings->currency_icon }})
+                                                                    {{ $variantItem->name }} (${{ $variantItem->price }})
                                                                 </option>
                                                             @endif
                                                         @endforeach
@@ -144,6 +143,8 @@
 
                                 <ul class="wsus__button_area">
                                     <li><button type="submit" class="add_cart" href="#">add to cart</button></li>
+
+
                                     <li><a style="border: 1px solid gray;
                                         padding: 7px 11px;
                                         border-radius: 100%;"
@@ -161,6 +162,10 @@
                                         </button>
 
                                     </li>
+
+
+
+
                                 </ul>
                             </form>
                             <p class="brand_model"><span>brand :</span> {{ $product->brand->name }}</p>
@@ -239,7 +244,8 @@
                                                     <p><span>Address:</span> {{ $product->vendor->address }}</p>
                                                     <p><span>Phone:</span> {{ $product->vendor->phone }}</p>
                                                     <p><span>mail:</span> {{ $product->vendor->email }}</p>
-                                                    <a href="vendor_details.html" class="see_btn">visit store</a>
+                                                    <a href="{{ route('vendor.products', $product->vendor->id) }}"
+                                                        class="see_btn">visit store</a>
                                                 </div>
                                             </div>
                                             <div class="col-xl-12">
@@ -267,7 +273,8 @@
                                                                 <div class="wsus__comment_text reply">
                                                                     <h6>{{ $review->user->name }}
                                                                         <span>{{ $review->rating }} <i
-                                                                                class="fas fa-star"></i></span></h6>
+                                                                                class="fas fa-star"></i></span>
+                                                                    </h6>
                                                                     <span>{{ date('d M Y', strtotime($review->created_at)) }}</span>
                                                                     <p>{{ $review->review }}
                                                                     </p>
@@ -319,7 +326,6 @@
                                                                 <form action="{{ route('user.review.create') }}"
                                                                     enctype="multipart/form-data" method="POST">
                                                                     @csrf
-                                                                    <input type="hidden" name="vendor_id" value='$product->vendor_id'>
                                                                     <p class="rating">
                                                                         <span>select your rating : </span>
                                                                     </p>
@@ -380,8 +386,8 @@
         </div>
     </section>
     <!--============================
-                        PRODUCT DETAILS END
-                    ==============================-->
+                    PRODUCT DETAILS END
+                ==============================-->
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -395,7 +401,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="">Message</label>
-                            <textarea name="message" class="form-control  mt-2 message-box"></textarea>
+                            <textarea name="message" class="form-control mt-2 message-box"></textarea>
                             <input type="hidden" name="receiver_id" value="{{ $product->vendor_id }}">
                         </div>
 
@@ -408,6 +414,42 @@
             </div>
         </div>
     </div>
+
+
+
+    <!--============================
+                    RELATED PRODUCT START
+                ==============================-->
+    @php
+        $products = \App\Models\Product::with(['variants', 'productImageGalleries'])
+            ->where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->orderBy('id', 'DESC')
+            ->take(12)
+            ->get();
+
+    @endphp
+    <section id="wsus__electronic">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="wsus__section_header">
+                        <h3>Related Products</h3>
+                        <a class="see_btn" href="{{ route('products.index') }}">see more <i
+                                class="fas fa-caret-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row flash_sell_slider">
+                @foreach ($products as $product)
+                    <x-product-card :product="$product" />
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!--============================
+                    RELATED PRODUCT END
+                ==============================-->
 @endsection
 
 @push('scripts')
@@ -420,7 +462,6 @@
                 $.ajax({
                     method: 'POST',
                     url: '{{ route('user.send-message') }}',
-
                     data: formData,
                     beforeSend: function() {
                         let html =
@@ -435,7 +476,7 @@
                         $('.message-box').val('');
                         $('.modal-body').append(
                             `<div class="alert alert-success mt-2"><a href="{{ route('user.messages.index') }}" class="text-primary">Click here</a> for go to messenger.</div>`
-                            )
+                        )
                         toastr.success(response.message);
                     },
                     error: function(xhr, status, error) {

@@ -83,7 +83,6 @@ class ProductController extends Controller
                     $price = explode(';', $request->range);
                     $from = $price[0];
                     $to = $price[1];
-
                     return $query->where('price', '>=', $from)->where('price', '<=', $to);
                 })
                 ->paginate(12);
@@ -108,18 +107,15 @@ class ProductController extends Controller
                     $price = explode(';', $request->range);
                     $from = $price[0];
                     $to = $price[1];
-
                     return $query->where('price', '>=', $from)->where('price', '<=', $to);
                 })
                 ->paginate(12);
         }
-
         $categories = Category::where(['status' => 1])->get();
         $brands = Brand::where(['status' => 1])->get();
         // banner ad
         $productpage_banner_section = Adverisement::where('key', 'productpage_banner_section')->first();
         $productpage_banner_section = json_decode($productpage_banner_section?->value);
-
         return view(
             'frontend.pages.product',
             compact(
@@ -133,7 +129,7 @@ class ProductController extends Controller
     /** Show product detail page */
     public function showProduct(string $slug)
     {
-        $product = Product::with(['vendor', 'category', 'productImageGalleries', 'variants', 'brand'])->where('slug', $slug)->where('status', 1)->first();
+        $product = Product::with(['category', 'productImageGalleries', 'variants', 'brand'])->where('slug', $slug)->where('status', 1)->first();
         $reviews = ProductReview::where('product_id', $product->id)->where('status', 1)->paginate(10);
         return view('frontend.pages.product-detail', compact('product', 'reviews'));
     }

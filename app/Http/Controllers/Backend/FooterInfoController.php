@@ -11,18 +11,13 @@ use Illuminate\Support\Facades\Cache;
 class FooterInfoController extends Controller
 {
     use ImageUploadTrait;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $footerInfo = FooterInfo::first();
         return view('admin.footer.footer-info.index', compact('footerInfo'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -32,11 +27,9 @@ class FooterInfoController extends Controller
             'address' => ['max:300'],
             'copyright' => ['max:200']
         ]);
-
         $footerInfo = FooterInfo::find($id);
         /** Handle file upload */
         $imagePath = $this->updateImage($request, 'logo', 'uploads', $footerInfo?->logo);
-
         FooterInfo::updateOrCreate(
             ['id' => $id],
             [
@@ -48,19 +41,8 @@ class FooterInfoController extends Controller
 
             ]
         );
-
         Cache::forget('footer_info');
-
-        toastr('Updated successfully!', 'success', 'success');
-
+        toastr('Updated successfully!', 'info', 'success');
         return redirect()->back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

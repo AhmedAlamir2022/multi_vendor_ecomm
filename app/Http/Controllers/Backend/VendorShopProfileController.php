@@ -11,26 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class VendorShopProfileController extends Controller
 {
     use ImageUploadTrait;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $profile = User::where('id', Auth::user()->id)->first();
         return view('vendor.shop-profile.index', compact('profile'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -55,40 +42,7 @@ class VendorShopProfileController extends Controller
         $vendor->tw_link = $request->tw_link;
         $vendor->insta_link = $request->insta_link;
         $vendor->save();
-
-        toastr('Updated Successfully!', 'success');
+        toastr('Updated Successfully!', 'info');
         return redirect()->back();
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

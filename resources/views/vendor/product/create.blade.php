@@ -6,8 +6,8 @@
 
 @section('content')
     <!--=============================
-        DASHBOARD START
-      ==============================-->
+                    DASHBOARD START
+                  ==============================-->
     <section id="wsus__dashboard">
         <div class="container-fluid">
             @include('vendor.layouts.sidebar')
@@ -24,14 +24,12 @@
                                     <div class="form-group wsus__input">
                                         <label>Image</label>
                                         <input type="file" class="form-control" name="image">
-                                    </div>
-
+                                    </div><br>
                                     <div class="form-group wsus__input">
                                         <label>Name</label>
                                         <input type="text" class="form-control" name="name"
                                             value="{{ old('name') }}">
-                                    </div>
-
+                                    </div><br>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group wsus__input">
@@ -63,37 +61,43 @@
                                                 </select>
                                             </div>
                                         </div>
-
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group wsus__input">
+                                                <label for="inputState">Brand</label>
+                                                <select id="inputState" class="form-control" name="brand">
+                                                    <option value="">Select</option>
+                                                    @foreach ($brands as $brand)
+                                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group wsus__input">
+                                                <label>SKU</label>
+                                                <input type="text" class="form-control" name="sku"
+                                                    value="{{ old('sku') }}">
+                                            </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group wsus__input">
+                                                <label>Price</label>
+                                                <input type="text" class="form-control" name="price"
+                                                    value="{{ old('price') }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group wsus__input">
+                                                <label>Offer Price</label>
+                                                <input type="text" class="form-control" name="offer_price"
+                                                    value="{{ old('offer_price') }}">
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div class="form-group wsus__input">
-                                        <label for="inputState">Brand</label>
-                                        <select id="inputState" class="form-control" name="brand">
-                                            <option value="">Select</option>
-                                            @foreach ($brands as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group wsus__input">
-                                        <label>SKU</label>
-                                        <input type="text" class="form-control" name="sku"
-                                            value="{{ old('sku') }}">
-                                    </div>
-
-                                    <div class="form-group wsus__input">
-                                        <label>Price</label>
-                                        <input type="text" class="form-control" name="price"
-                                            value="{{ old('price') }}">
-                                    </div>
-
-                                    <div class="form-group wsus__input">
-                                        <label>Offer Price</label>
-                                        <input type="text" class="form-control" name="offer_price"
-                                            value="{{ old('offer_price') }}">
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group wsus__input">
@@ -109,51 +113,51 @@
                                                     value="{{ old('offer_end_date') }}">
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </div><br>
                                     <div class="form-group wsus__input">
                                         <label>Stock Quantity</label>
                                         <input type="number" min="0" class="form-control" name="qty"
                                             value="{{ old('qty') }}">
-                                    </div>
-
+                                    </div><br>
                                     <div class="form-group wsus__input">
                                         <label>Video Link</label>
                                         <input type="text" class="form-control" name="video_link"
                                             value="{{ old('video_link') }}">
-                                    </div>
-
-
+                                    </div><br>
                                     <div class="form-group wsus__input">
                                         <label>Short Description</label>
                                         <textarea name="short_description" class="form-control"></textarea>
-                                    </div>
-
-
+                                    </div><br>
                                     <div class="form-group wsus__input">
                                         <label>Long Description</label>
                                         <textarea name="long_description" class="form-control summernote"></textarea>
-                                    </div>
-
-
+                                    </div><br>
+                                    <div class="form-group wsus__input">
+                                        <label>Product Type</label>
+                                        <select id="inputState" class="form-control" name="product_type">
+                                            <option value="">Select</option>
+                                            <option value="new_arrival">New Arrival</option>
+                                            <option value="featured_product">Featured</option>
+                                            <option value="top_product">Top Product</option>
+                                            <option value="best_product">Best Product</option>
+                                        </select>
+                                    </div><br>
                                     <div class="form-group wsus__input">
                                         <label>Seo Title</label>
                                         <input type="text" class="form-control" name="seo_title"
                                             value="{{ old('seo_title') }}">
-                                    </div>
-
+                                    </div><br>
                                     <div class="form-group wsus__input">
                                         <label>Seo Description</label>
                                         <textarea name="seo_description" class="form-control"></textarea>
-                                    </div>
-
+                                    </div><br>
                                     <div class="form-group wsus__input">
                                         <label for="inputState">Status</label>
                                         <select id="inputState" class="form-control" name="status">
                                             <option value="1">Active</option>
                                             <option value="0">Inactive</option>
                                         </select>
-                                    </div>
+                                    </div><hr>
                                     <button type="submmit" class="btn btn-primary">Create</button>
                                 </form>
                             </div>
@@ -164,8 +168,8 @@
         </div>
     </section>
     <!--=============================
-        DASHBOARD START
-      ==============================-->
+                    DASHBOARD START
+                  ==============================-->
 @endsection
 
 @push('scripts')

@@ -97,7 +97,7 @@ class SellerProductsDataTable extends DataTable
     {
         return $model->where('vendor_id', '!=', Auth::user()->id)
             ->where('is_approved', 1)
-            ->newQuery();
+            ->newQuery()->orderBy('id', 'desc');
     }
 
     /**

@@ -34,7 +34,6 @@ class BlogController extends Controller
         $moreBlogs = Blog::where('slug', '!=', $slug)->where('status', 1)->orderBy('id', 'DESC')->take(5)->get();
         $recentBlogs = Blog::where('slug', '!=', $slug)->where('status', 1)
             ->where('category_id', $blog->category_id)->orderBy('id', 'DESC')->take(12)->get();
-
         $comments = $blog->comments()->paginate(20);
         $categories = BlogCategory::where('status', 1)->get();
         return view('frontend.pages.blog-detail', compact('blog', 'moreBlogs','recentBlogs', 'comments', 'categories'));
@@ -45,14 +44,12 @@ class BlogController extends Controller
         $request->validate([
             'comment' => ['required', 'max:1000']
         ]);
-
         $comment = new BlogComment();
         $comment->user_id = auth()->user()->id;
         $comment->blog_id = $request->blog_id;
         $comment->comment = $request->comment;
         $comment->save();
         toastr('Comment added successfully!', 'success', 'success');
-
         return redirect()->back();
     }
 }

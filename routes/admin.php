@@ -63,6 +63,7 @@ Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard'
 /** Profile Routes **/
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
 Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+Route::post('shop-profile/update', [ProfileController::class, 'updateShopProfile'])->name('shop-profile.update');
 Route::post('profile/update/password', [ProfileController::class, 'updatePassword'])->name('password.update');
 
 /** Slider Route **/
@@ -86,7 +87,7 @@ Route::put('brand/change-status', [BrandController::class, 'changeStatus'])->nam
 Route::resource('brand', BrandController::class);
 
 /** Vendor Profile routes */
-Route::resource('vendor-profile', AdminVendorProfileController::class);
+// Route::resource('vendor-profile', AdminVendorProfileController::class);
 
 /** Products routes */
 Route::get('product/get-subcategories', [ProductController::class, 'getSubCategories'])->name('product.get-subcategories');

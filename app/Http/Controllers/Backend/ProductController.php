@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\ChildCategory;
+use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\ProductImageGallery;
 use App\Models\ProductVariant;
@@ -21,17 +22,12 @@ use Str;
 class ProductController extends Controller
 {
     use ImageUploadTrait;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(ProductDataTable $dataTable)
     {
         return $dataTable->render('admin.product.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $vendors = User::where('role', 'vendor')->get();
@@ -40,9 +36,6 @@ class ProductController extends Controller
         return view('admin.product.create', compact('categories', 'brands','vendors'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -55,13 +48,11 @@ class ProductController extends Controller
             'short_description' => ['required', 'max: 600'],
             'long_description' => ['required'],
             'seo_title' => ['nullable', 'max:200'],
-            'seo_description' => ['nullable', 'max:250'],
+            'seo_description' => ['nullable', 'max:350'],
             'status' => ['required']
         ]);
-
         /** Handle the image upload */
         $imagePath = $this->uploadImage($request, 'image', 'uploads');
-
         $product = new Product();
         $product->thumb_image = $imagePath;
         $product->name = $request->name;
@@ -86,22 +77,10 @@ class ProductController extends Controller
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();
-
         toastr('Created Successfully!', 'success');
         return redirect()->route('admin.products.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
@@ -113,9 +92,6 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('product', 'categories', 'brands', 'subCategories', 'childCategories','vendors'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -128,12 +104,10 @@ class ProductController extends Controller
             'short_description' => ['required', 'max: 600'],
             'long_description' => ['required'],
             'seo_title' => ['nullable','max:200'],
-            'seo_description' => ['nullable','max:250'],
+            'seo_description' => ['nullable','max:350'],
             'status' => ['required']
         ]);
-
         $product = Product::findOrFail($id);
-
         /** Handle the image upload */
         $imagePath = $this->updateImage($request, 'image', 'uploads', $product->thumb_image);
 
@@ -159,20 +133,16 @@ class ProductController extends Controller
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();
-
-        toastr('Updated Successfully!', 'success');
+        toastr('Updated Successfully!', 'info');
         return redirect()->route('admin.products.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
-        // if(OrderProduct::where('product_id',$product->id)->count() > 0){
-        //     return response(['status' => 'error', 'message' => 'This product have orders can\'t delete it.']);
-        // }
+        if(OrderProduct::where('product_id',$product->id)->count() > 0){
+            return response(['status' => 'error', 'message' => 'This product have orders can\'t delete it.']);
+        }
 
         /** Delte the main product image */
         $this->deleteImage($product->thumb_image);
@@ -186,12 +156,10 @@ class ProductController extends Controller
 
         /** Delete product variants if exist */
         $variants = ProductVariant::where('product_id', $product->id)->get();
-
         foreach($variants as $variant){
             $variant->productVariantItems()->delete();
             $variant->delete();
         }
-
         $product->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
@@ -213,7 +181,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($request->id);
         $product->status = $request->status == 'true' ? 1 : 0;
         $product->save();
-
         return response(['message' => 'Status has been updated!']);
     }
 }

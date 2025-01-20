@@ -11,26 +11,17 @@ use Illuminate\Support\Facades\Cache;
 
 class FooterGridThreeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(FooterGridThreeDataTable $dataTable)
     {
         $footerTitle = FooterTitle::first();
         return $dataTable->render('admin.footer.footer-grid-three.index', compact('footerTitle'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.footer.footer-grid-three.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -38,31 +29,22 @@ class FooterGridThreeController extends Controller
             'url' => ['required', 'url'],
             'status' => ['required']
         ]);
-
         $footer = new FooterGridThree();
         $footer->name = $request->name;
         $footer->url = $request->url;
         $footer->status = $request->status;
         $footer->save();
-
         Cache::forget('footer_grid_three');
         toastr('Created Successfully!', 'success', 'success');
         return redirect()->route('admin.footer-grid-three.index');
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $footer = FooterGridThree::findOrFail($id);
         return view('admin.footer.footer-grid-three.edit', compact('footer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -70,21 +52,16 @@ class FooterGridThreeController extends Controller
             'url' => ['required', 'url'],
             'status' => ['required']
         ]);
-
         $footer = FooterGridThree::findOrFail($id);
         $footer->name = $request->name;
         $footer->url = $request->url;
         $footer->status = $request->status;
         $footer->save();
-
         Cache::forget('footer_grid_three');
-        toastr('Update Successfully!', 'success', 'success');
+        toastr('Update Successfully!', 'info', 'success');
         return redirect()->route('admin.footer-grid-three.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $footer = FooterGridThree::findOrFail($id);
@@ -111,8 +88,7 @@ class FooterGridThreeController extends Controller
             ['id' => 1],
             ['footer_grid_three_title' => $request->title]
         );
-
-        toastr('Updated Successfully', 'success', 'success');
+        toastr('Updated Successfully', 'info', 'success');
         return redirect()->back();
     }
 }

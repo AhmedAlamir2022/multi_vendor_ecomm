@@ -41,15 +41,12 @@ class AdminController extends Controller
         ->sum('sub_total');
 
         $totalReview = ProductReview::count();
-
         $totalBrands = Brand::count();
         $totalCategories = Category::count();
         $totalBlogs = Blog::count();
         $totalSubscriber = NewsletterSubscriber::count();
         $totalVendors = User::where('role', 'vendor')->count();
         $totalUsers = User::where('role', 'user')->count();
-
-
 
         return view('admin.dashboard', compact(
             'todaysOrder',
@@ -74,5 +71,4 @@ class AdminController extends Controller
     public function login(){
         return view('admin.auth.login');
     }
-
 }

@@ -65,8 +65,6 @@ class VendorController extends Controller
             $query->where('vendor_id', Auth::user()->id);
         })->count();
 
-
-
         return view('vendor.dashboard.dashboard', compact(
             'todaysOrder',
             'todaysPendingOrder',

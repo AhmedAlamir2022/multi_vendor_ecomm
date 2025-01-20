@@ -26,8 +26,7 @@ class VendorRequestController extends Controller
         $vendor->vendor_status = $request->vendor_status;
         $vendor->role = 'vendor';
         $vendor->save();
-
-        toastr('Updated successfully!', 'success', 'success');
+        toastr('Updated successfully!', 'info', 'success');
         return redirect()->route('admin.vendor-requests.index');
     }
 }

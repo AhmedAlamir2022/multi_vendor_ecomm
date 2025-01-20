@@ -22,11 +22,9 @@ class WithdrawController extends Controller
         $request->validate([
             'status' => ['required', 'in:pending,paid,decline']
         ]);
-
         $withdraw = WithdrawRequest::findOrFail($id);
         $withdraw->status = $request->status;
         $withdraw->save();
-
         toastr('Updated successfully!');
         return redirect()->route('admin.withdraw.index');
     }

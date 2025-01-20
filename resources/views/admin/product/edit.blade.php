@@ -95,35 +95,29 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="inputState">Vendor</label>
-                                            <select id="inputState" class="form-control" name="vendor">
-                                                <option value="">Select</option>
-                                                @foreach ($vendors as $vendor)
-                                                    <option {{ $vendor->id == $product->vendor_id ? 'selected' : '' }}
-                                                        value="{{ $vendor->id }}">{{ $vendor->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <label>SKU</label>
+                                            <input type="text" class="form-control" name="sku"
+                                                value="{{ $product->sku }}">
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label>SKU</label>
-                                    <input type="text" class="form-control" name="sku" value="{{ $product->sku }}">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input type="text" class="form-control" name="price"
+                                                value="{{ $product->price }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Offer Price</label>
+                                            <input type="text" class="form-control" name="offer_price"
+                                                value="{{ $product->offer_price }}">
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label>Price</label>
-                                    <input type="text" class="form-control" name="price"
-                                        value="{{ $product->price }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Offer Price</label>
-                                    <input type="text" class="form-control" name="offer_price"
-                                        value="{{ $product->offer_price }}">
-                                </div>
-
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -200,7 +194,7 @@
                                         </option>
                                     </select>
                                 </div>
-                                <button type="submmit" class="btn btn-primary">Create</button>
+                                <button type="submmit" class="btn btn-primary">Update Product Info</button>
                             </form>
                         </div>
 

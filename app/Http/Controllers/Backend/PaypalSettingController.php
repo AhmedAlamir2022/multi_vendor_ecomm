@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class PaypalSettingController extends Controller
 {
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -35,8 +32,7 @@ class PaypalSettingController extends Controller
                 'secret_key' => $request->secret_key,
             ]
         );
-
-        toastr('Updated Successfully!', 'success', 'Success');
+        toastr('Updated Successfully!', 'info', 'Success');
         return redirect()->back();
     }
 }

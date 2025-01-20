@@ -50,8 +50,7 @@ class SettingController extends Controller
                 'time_zone' => $request->time_zone
             ]
         );
-
-        toastr('Updated successfully!', 'success', 'Success');
+        toastr('Updated successfully!', 'info', 'Success');
         return redirect()->back();
     }
 
@@ -77,7 +76,7 @@ class SettingController extends Controller
                 'encryption' => $request->encryption,
             ]
         );
-        toastr('Updates successfully!', 'success', 'success');
+        toastr('Updates successfully!', 'info', 'success');
         return redirect()->back();
     }
 
@@ -98,8 +97,7 @@ class SettingController extends Controller
                 'favicon' => (!empty($favicon)) ? $favicon : $request->old_favicon
             ]
         );
-
-        toastr('Updated successfully!', 'success', 'success');
+        toastr('Updated successfully!', 'info', 'success');
         return redirect()->back();
     }
 
@@ -117,8 +115,7 @@ class SettingController extends Controller
             ['id' => 1],
             $validatedData
         );
-
-        toastr('Updated successfully!', 'success', 'success');
+        toastr('Updated successfully!', 'info', 'success');
         return redirect()->back();
     }
 }

@@ -57,7 +57,7 @@ class ChildCategoryDataTable extends DataTable
      */
     public function query(ChildCategory $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('id', 'desc');
     }
 
     /**

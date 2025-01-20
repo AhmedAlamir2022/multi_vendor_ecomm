@@ -9,25 +9,17 @@ use Illuminate\Http\Request;
 
 class WithdrawMehtodController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(WithdrawMethodDataTable $dataTable)
     {
         return $dataTable->render('admin.withdraw-method.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.withdraw-method.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -45,24 +37,16 @@ class WithdrawMehtodController extends Controller
         $method->withdraw_charge = $request->withdraw_charge;
         $method->description = $request->description;
         $method->save();
-
         toastr('Created successfully', 'success');
         return redirect()->route('admin.withdraw-method.index');
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $method = WithdrawMethod::findOrFail($id);
         return view('admin.withdraw-method.edit', compact('method'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -72,7 +56,6 @@ class WithdrawMehtodController extends Controller
             'withdraw_charge' => ['required', 'numeric'],
             'description' => ['required'],
         ]);
-
         $method = WithdrawMethod::findOrFail($id);
         $method->name = $request->name;
         $method->minimum_amount = $request->minimum_amount;
@@ -80,14 +63,10 @@ class WithdrawMehtodController extends Controller
         $method->withdraw_charge = $request->withdraw_charge;
         $method->description = $request->description;
         $method->save();
-
-        toastr('Update successfully', 'success');
+        toastr('Update successfully', 'info');
         return redirect()->route('admin.withdraw-method.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $method = WithdrawMethod::findOrFail($id);

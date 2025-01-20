@@ -25,7 +25,7 @@ class VendorOrderController extends Controller
         $order = Order::findOrFail($id);
         $order->order_status = $request->status;
         $order->save();
-        toastr('Status Updated Successfully!', 'success', 'Success');
+        toastr('Status Updated Successfully!', 'info', 'Success');
         return redirect()->back();
     }
 }

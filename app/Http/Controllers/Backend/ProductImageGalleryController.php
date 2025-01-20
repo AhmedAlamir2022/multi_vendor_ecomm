@@ -12,18 +12,13 @@ use Illuminate\Http\Request;
 class ProductImageGalleryController extends Controller
 {
     use ImageUploadTrait;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request, ProductImageGalleryDataTable $dataTable)
     {
         $product = Product::findOrFail($request->product);
         return $dataTable->render('admin.product.image-gallery.index', compact('product'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -42,9 +37,6 @@ class ProductImageGalleryController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $productImage = ProductImageGallery::findOrFail($id);

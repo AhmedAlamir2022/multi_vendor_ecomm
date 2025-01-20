@@ -51,7 +51,7 @@ class BlogCategoryDataTable extends DataTable
      */
     public function query(BlogCategory $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('id', 'desc');
     }
 
     /**

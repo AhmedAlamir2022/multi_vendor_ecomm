@@ -10,7 +10,7 @@
                 @method('PUT')
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>Category</label>
                             <select name="cat_one" class="form-control main-category">
@@ -21,7 +21,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="form-group">
                             @php
                              $subCategories = \App\Models\SubCategory::where('category_id', $sliderSectionTwo->category)->get();
@@ -50,7 +50,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
 
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-@push('scripts')
+{{-- @push('scripts')
     <script>
         $(document).ready(function() {
             $('body').on('change', '.main-category', function(e) {
@@ -115,4 +115,4 @@
 
         })
     </script>
-@endpush
+@endpush --}}

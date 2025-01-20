@@ -10,25 +10,17 @@ use Illuminate\Support\Facades\Cache;
 
 class FooterSocialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(FooterSocialDataTable $dataTable)
     {
         return $dataTable->render('admin.footer.footer-socials.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.footer.footer-socials.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -37,31 +29,23 @@ class FooterSocialController extends Controller
             'url' => ['required', 'url'],
             'status' => ['required'],
         ]);
-
         $footer = new FooterSocial();
         $footer->icon = $request->icon;
         $footer->name = $request->name;
         $footer->url = $request->url;
         $footer->status = $request->status;
         $footer->save();
-
         Cache::forget('footer_socials');
         toastr('Created Successfully!', 'success', 'success');
         return redirect()->route('admin.footer-socials.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function edit(string $id)
     {
         $footer = FooterSocial::findOrFail($id);
         return view('admin.footer.footer-socials.edit', compact('footer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -70,22 +54,17 @@ class FooterSocialController extends Controller
             'url' => ['required', 'url'],
             'status' => ['required'],
         ]);
-
         $footer = FooterSocial::findOrFail($id);
         $footer->icon = $request->icon;
         $footer->name = $request->name;
         $footer->url = $request->url;
         $footer->status = $request->status;
         $footer->save();
-
         Cache::forget('footer_socials');
-        toastr('Updated Successfully!', 'success', 'success');
+        toastr('Updated Successfully!', 'info', 'success');
         return redirect()->route('admin.footer-socials.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $footer = FooterSocial::findOrFail($id);
@@ -99,7 +78,6 @@ class FooterSocialController extends Controller
         $footer = FooterSocial::findOrFail($request->id);
         $footer->status = $request->status == 'true' ? 1 : 0;
         $footer->save();
-
         Cache::forget('footer_socials');
         return response(['message' => 'Status has been updated!']);
     }

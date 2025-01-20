@@ -19,17 +19,12 @@ use Str;
 class VendorProductController extends Controller
 {
     use ImageUploadTrait;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(VendorProductDataTable $dataTable)
     {
         return $dataTable->render('vendor.product.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $categories = Category::all();
@@ -37,9 +32,6 @@ class VendorProductController extends Controller
         return view('vendor.product.create', compact('categories', 'brands'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -49,6 +41,7 @@ class VendorProductController extends Controller
             'brand' => ['required'],
             'price' => ['required'],
             'qty' => ['required'],
+            'product_type' => ['required'],
             'short_description' => ['required', 'max: 600'],
             'long_description' => ['required'],
             'seo_title' => ['nullable', 'max:200'],
@@ -58,7 +51,6 @@ class VendorProductController extends Controller
 
         /** Handle the image upload */
         $imagePath = $this->uploadImage($request, 'image', 'uploads');
-
         $product = new Product();
         $product->thumb_image = $imagePath;
         $product->name = $request->name;
@@ -83,36 +75,21 @@ class VendorProductController extends Controller
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();
-
         toastr('Created Successfully!', 'success');
         return redirect()->route('vendor.products.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-
         /** Check if it's the owner of the product */
         if($product->vendor_id != Auth::user()->id){
             abort(404);
         }
-
         $subCategories = SubCategory::where('category_id', $product->category_id)->get();
         $childCategories = ChildCategory::where('sub_category_id', $product->sub_category_id)->get();
         $categories = Category::all();
         $brands = Brand::all();
-
         return view('vendor.product.edit',
         compact(
             'product',
@@ -123,9 +100,6 @@ class VendorProductController extends Controller
         ));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
 
@@ -136,18 +110,17 @@ class VendorProductController extends Controller
             'brand' => ['required'],
             'price' => ['required'],
             'qty' => ['required'],
+            'product_type' => ['required'],
             'short_description' => ['required', 'max: 600'],
             'long_description' => ['required'],
             'seo_title' => ['nullable','max:200'],
             'seo_description' => ['nullable','max:250'],
             'status' => ['required']
         ]);
-
         $product = Product::findOrFail($id);
         if($product->vendor_id != Auth::user()->id){
             abort(404);
         }
-
         /** Handle the image upload */
         $imagePath = $this->updateImage($request, 'image', 'uploads', $product->thumb_image);
         $product->thumb_image = empty(!$imagePath) ? $imagePath : $product->thumb_image;
@@ -172,43 +145,33 @@ class VendorProductController extends Controller
         $product->seo_title = $request->seo_title;
         $product->seo_description = $request->seo_description;
         $product->save();
-
-        toastr('Updated Successfully!', 'success');
+        toastr('Updated Successfully!', 'info');
         return redirect()->route('vendor.products.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $product = Product::findOrFail($id);
         if($product->vendor_id != Auth::user()->id){
             abort(404);
         }
-
         /** Delte the main product image */
         $this->deleteImage($product->thumb_image);
-
         /** Delete product gallery images */
         $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
         foreach($galleryImages as $image){
             $this->deleteImage($image->image);
             $image->delete();
         }
-
         /** Delete product variants if exist */
         $variants = ProductVariant::where('product_id', $product->id)->get();
-
         foreach($variants as $variant){
             $variant->productVariantItems()->delete();
             $variant->delete();
         }
-
         $product->delete();
         return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
     }
-
 
     public function changeStatus(Request $request)
     {
@@ -217,10 +180,6 @@ class VendorProductController extends Controller
         $product->save();
         return response(['message' => 'Status has been updated!']);
     }
-
-    /**
-     * Get all product sub categores
-     */
 
     public function getSubCategories(Request $request)
     {
